@@ -1,0 +1,26 @@
+{
+  "name": "rogue-ui",
+  "version": "1.0.0",
+  "description": "Front end for cs4360 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "",
+    "start": "node src/server/routes"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kriswest56/rogue-ui.git"
+  },
+  "author": "Kristoffer West",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kriswest56/rogue-ui/issues"
+  },
+  "homepage": "https://github.com/Kriswest56/rogue-ui#readme",
+  "dependencies": {
+    "hapi": "^17.5.4",
+    "node": "^10.10.0",
+    "react": "^16.5.0"
+  }
+}
