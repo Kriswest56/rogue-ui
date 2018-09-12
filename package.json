@@ -19,8 +19,26 @@
   },
   "homepage": "https://github.com/Kriswest56/rogue-ui#readme",
   "dependencies": {
-    "hapi": "^17.5.4",
-    "node": "^10.10.0",
-    "react": "^16.5.0"
+    "handlebars": "^4.0.12",
+    "hapi-react-views": "^10.0.0",
+    "hoek": "5.x.x",
+    "requirejs": "^2.3.6"
+  },
+  "peerDependencies": {
+    "react": "16.x.x",
+    "react-dom": "16.x.x "
+  },
+  "devDependencies": {
+    "babel-cli": "6.x.x",
+    "babel-core": "6.x.x",
+    "babel-loader": "7.x.x",
+    "babel-preset-env": "1.x.x",
+    "babel-preset-react": "6.x.x",
+    "code": "5.x.x",
+    "hapi": "17.x.x",
+    "react": "16.x.x",
+    "react-dom": "^16.5.0",
+    "vision": "5.x.x",
+    "webpack": "3.x.x"
   }
 }

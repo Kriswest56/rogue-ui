@@ -1,7 +1,15 @@
 const Hapi = require('hapi');
+const HapiReactViews = require('hapi-react-views');
+const Vision = require('vision');
+
+require('babel-core/register')({
+    presets: ['react', 'env']
+});
 
 const Config = require('../../config');
-const {boardHandler} = require('../server/board/boardHandler');
+const {pageHandler} = require('./pageHandler');
+
+const LANDING = 'landing';
 
 const server = Hapi.server({
     port: 8081,
@@ -12,15 +20,15 @@ server.route(
     {
         method: 'GET',
         path: '/',
-        handler: function (request, response) {
-            return boardHandler(request, response);
+        handler: function (request, h) {
+            return pageHandler(request, h, LANDING);
         }
     },
     {
         method: 'GET',
         path: `/${Config.baseUrl}`,
         handler: (request, h) => {
-            return 'Hello, world!';
+            return pageHandler(request, h, LANDING);
         }
     },
     {
@@ -34,6 +42,17 @@ server.route(
 
 
 const init = async () => {
+
+    await server.register(Vision);
+
+    server.views({
+        engines: {
+            jsx: HapiReactViews,
+            hbs: require('handlebars')
+        },
+        relativeTo: __dirname,
+        path: './',
+    });
 
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
