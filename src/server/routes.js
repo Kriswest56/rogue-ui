@@ -1,44 +1,44 @@
 const Hapi = require('hapi');
 const HapiReactViews = require('hapi-react-views');
 const Vision = require('vision');
+const config = require('../../config');
 
 require('babel-core/register')({
     presets: ['react', 'env']
 });
 
-const Config = require('../../config');
 const {pageHandler} = require('./pageHandler');
-
 const LANDING = 'landing';
+const appPrefix = config.baseUrl;
 
 const server = Hapi.server({
     port: 8081,
     host: 'localhost'
 });
 
-server.route(
+server.route([
     {
         method: 'GET',
         path: '/',
         handler: function (request, h) {
-            return pageHandler(request, h, LANDING);
+            return h.redirect(`/${appPrefix}`);
         }
     },
     {
         method: 'GET',
-        path: `/${Config.baseUrl}`,
+        path: `/${appPrefix}`,
         handler: (request, h) => {
             return pageHandler(request, h, LANDING);
         }
     },
     {
         method: 'GET',
-        path: `/${Config.baseUrl}/{name}`,
+        path: `/${appPrefix}/{name}`,
         handler: (request, h) => {
-    
             return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
         }
-    });
+    }
+]);
 
 
 const init = async () => {
