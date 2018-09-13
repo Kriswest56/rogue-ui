@@ -1,4 +1,4 @@
-# rogue-ui
+# rouglike-ui
 Front end for cs4360 project
 
 To run: 
