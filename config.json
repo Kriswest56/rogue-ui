@@ -1,4 +1,7 @@
 {
     "appName" : "Rogue Game",
-    "baseUrl" : "board"
+    "baseUrl" : "board",
+    "roguelikeServer": {
+        "baseUrl" : "http://localhost:3000"
+    }
 }

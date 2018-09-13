@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Kriswest56/rogue-ui#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "handlebars": "^4.0.12",
     "hapi-react-views": "^10.0.0",
     "hoek": "5.x.x",
