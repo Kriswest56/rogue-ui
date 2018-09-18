@@ -82,12 +82,6 @@ class Board extends React.Component {
 
         board = await this.boardMapper(board);
 
-        for(let i = 0; i < board.length; i++) {
-            for(let j = 0; j < board[0].length; j++){
-                console.log(board[i][j]);
-            }
-        }
-
         this.setState({
             board: board
         });
@@ -118,7 +112,7 @@ class Board extends React.Component {
 
         let key = 1;
 
-        board = board.map((boardRow, i) => {
+        let renderedBoard = board.map((boardRow, i) => {
 
             let row = boardRow.split("");
             
@@ -133,15 +127,15 @@ class Board extends React.Component {
                 );
             });
 
-            let renderedBoard = <div key={i} className="row">
+            let renderedRow = <div key={i} className="row">
                                     {row}
                                 </div>
 
-            return renderedBoard;
+            return renderedRow;
     
         });
 
-        return board;
+        return renderedBoard;
             
     }
 
