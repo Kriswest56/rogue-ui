@@ -1,6 +1,8 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import axios from 'axios';
 import './board.css';
+import BoardSquare from './boardSquare/boardSquare';
 
 const config = require("../../config.json");
 let baseUrl = config.roguelikeServer.baseUrl;
@@ -78,7 +80,13 @@ class Board extends React.Component {
                 return ["Error"];
             });
 
-        board = this.boardMapper(board);
+        board = await this.boardMapper(board);
+
+        for(let i = 0; i < board.length; i++) {
+            for(let j = 0; j < board[0].length; j++){
+                console.log(board[i][j]);
+            }
+        }
 
         this.setState({
             board: board
@@ -99,7 +107,7 @@ class Board extends React.Component {
                 return ["Error"];
             });
 
-        board = this.boardMapper(board);
+        board = await this.boardMapper(board);
 
         this.setState({
             board: board
@@ -108,16 +116,33 @@ class Board extends React.Component {
 
     boardMapper = (board) => {
 
+        let key = 1;
+
         board = board.map((boardRow, i) => {
-            i++;
-            return (
-                <div key={i}>
-                    {boardRow}
-                </div>
-            );
+
+            let row = boardRow.split("");
+            
+            row = row.map((boardPiece) => {
+                key++;
+                return (
+                    <div className="col-md-1" key={key}>
+                        <BoardSquare 
+                            boardPiece={boardPiece}
+                        />
+                    </div>
+                );
+            });
+
+            let renderedBoard = <div key={i} className="row">
+                                    {row}
+                                </div>
+
+            return renderedBoard;
+    
         });
 
         return board;
+            
     }
 
     render() {
@@ -125,7 +150,11 @@ class Board extends React.Component {
             <div onKeyPress={this.handleKeyPress}>
                 <h1>Board</h1>
                 <div id="board">
-                    {this.state.board}
+                    <div className="jumbotron">
+                        <div>
+                            {this.state.board}
+                        </div>
+                    </div>
                 </div>
                 <div id="startButton">
                     <button onClick={this.createBoard} >Start</button> 

@@ -4,7 +4,6 @@ body {
   font-family: sans-serif;
 }
 
-.col-md-1 {
-  padding: 0px;
-  height: 40px;
+.boardPiece {
+  padding-top: 60%;
 }
