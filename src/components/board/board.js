@@ -80,7 +80,7 @@ class Board extends React.Component {
                 return ["Error"];
             });
 
-        board = await this.boardMapper(board);
+        board = await this.createBoard(board);
 
         this.setState({
             board: board
@@ -101,21 +101,24 @@ class Board extends React.Component {
                 return ["Error"];
             });
 
-        board = await this.boardMapper(board);
+        // generate board
+        board = await this.createBoard(board);
 
         this.setState({
             board: board
         });
     }
 
-    boardMapper = (board) => {
+    createBoard = (board) => {
 
         let key = 1;
 
+        // Iterate over rows
         let renderedBoard = board.map((boardRow, i) => {
 
             let row = boardRow.split("");
             
+            // Iterate over pieces in the row
             row = row.map((boardPiece) => {
                 key++;
                 return (
