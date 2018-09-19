@@ -80,14 +80,14 @@ class Board extends React.Component {
                 return ["Error"];
             });
 
-        board = await this.createBoard(board);
+        board = this.createBoard(board);
 
         this.setState({
             board: board
         });
     }
 
-    createBoard = async () => {
+    start = async () => {
 
         let board = [""];
 
@@ -102,7 +102,7 @@ class Board extends React.Component {
             });
 
         // generate board
-        board = await this.createBoard(board);
+        board = this.createBoard(board);
 
         this.setState({
             board: board
@@ -154,7 +154,7 @@ class Board extends React.Component {
                     </div>
                 </div>
                 <div id="startButton">
-                    <button onClick={this.createBoard} >Start</button> 
+                    <button onClick={this.start} >Start</button> 
                 </div>
             </div>
         );
