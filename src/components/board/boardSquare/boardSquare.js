@@ -2,6 +2,13 @@ import React from 'react';
 
 import './boardSquare.css';
 
+const GROUND = ".";
+const PLAYER = "@";
+
+const GROUND_CSS = "piece-ground";
+const PLAYER_CSS = "piece-player";
+const DEFAULT_CSS = "piece-player";
+
 class BoardSquare extends React.Component {
 
     getPieceDisplay = (boardPiece) => {
@@ -9,16 +16,16 @@ class BoardSquare extends React.Component {
         let pieceClass = ""
 
         switch(boardPiece){
-            case "." : 
-                pieceClass = "piece-ground";
+            case GROUND : 
+                pieceClass = GROUND_CSS;
                 break;
 
-            case "@" : 
-                pieceClass = "piece-player";
+            case PLAYER : 
+                pieceClass = PLAYER_CSS;
                 break;
 
             default :
-                pieceClass = "piece-ground";
+                pieceClass = DEFAULT_CSS;
                 break
         }
 
