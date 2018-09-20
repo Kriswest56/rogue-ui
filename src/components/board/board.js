@@ -147,7 +147,7 @@ class Board extends React.Component {
                     <div className="col-sm-4"></div>
                     <div className="col-sm-4">
                         <div id="header" className="jumbotron">
-                            <h1 className="header-style">ROGUE</h1>
+                            <h1 className="header-style">ROUGELIKE</h1>
                         </div>
                     </div>
                     <div className="col-sm-4"></div>
