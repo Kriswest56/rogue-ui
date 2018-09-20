@@ -138,44 +138,57 @@ class Board extends React.Component {
 
         return renderedBoard;         
     }
+    
+    header = () => {
+        let header = <div id="header" className="row">
+                        <div className="col-sm-12">
+                            <div id="header" className="jumbotron">
+                                <h1 className="header-style">ROUGELIKE</h1>
+                            </div>
+                        </div>
+                    </div>
+
+        return header;
+    }
+
+    board = () => {
+        let board = <div id="board" className="row">
+                        <div className="col-sm-4"></div>
+                        <div className="col-sm-4">
+                            <div>
+                                <div>
+                                    {this.state.board}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-4"></div>
+                    </div>
+
+        return board;
+    }
+
+    footer = () => {
+        let footer = <div id="footer" className="row">
+                        <div className="col-sm-4"></div>
+                        <div className="col-sm-4">
+                            <div id="startButton">
+                                <button className="btn btn-primary button-style" onClick={this.start} >Start</button> 
+                            </div>
+                        </div>
+                        <div className="col-sm-4"></div>
+                    </div>
+
+        return footer
+    }
 
     render() {
         return (
             <div onKeyPress={this.handleKeyPress}>
-
-                <div id="header" className="row">
-                    <div className="col-sm-4"></div>
-                    <div className="col-sm-4">
-                        <div id="header" className="jumbotron">
-                            <h1 className="header-style">ROUGELIKE</h1>
-                        </div>
-                    </div>
-                    <div className="col-sm-4"></div>
-                </div>
-                
-                <div id="board" className="row">
-                    <div className="col-sm-4"></div>
-                    <div className="col-sm-4">
-                        <div>
-                            <div>
-                                {this.state.board}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-sm-4"></div>
-                </div>
-
+                {this.header()}
                 <br />
-
-                <div id="startButton" className="row">
-                    <div className="col-sm-4"></div>
-                    <div className="col-sm-4">
-                        <div id="startButton">
-                            <button className="btn btn-primary button-style" onClick={this.start} >Start</button> 
-                        </div>
-                    </div>
-                    <div className="col-sm-4"></div>
-                </div>
+                {this.board()}
+                <br />
+                {this.footer()}
             </div>
         );
     }
