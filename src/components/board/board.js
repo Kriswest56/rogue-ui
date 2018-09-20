@@ -142,32 +142,39 @@ class Board extends React.Component {
     render() {
         return (
             <div onKeyPress={this.handleKeyPress}>
-                <div id="header" className="jumbotron">
-                    <h1>Roguelike</h1>
+
+                <div id="header" className="row">
+                    <div className="col-sm-4"></div>
+                    <div className="col-sm-4">
+                        <div id="header" className="jumbotron">
+                            <h1 className="header-style">ROGUE</h1>
+                        </div>
+                    </div>
+                    <div className="col-sm-4"></div>
                 </div>
                 
                 <div id="board" className="row">
-                    <div className="col-sm-1"></div>
-                    <div className="col-sm-10">
+                    <div className="col-sm-4"></div>
+                    <div className="col-sm-4">
                         <div>
                             <div>
                                 {this.state.board}
                             </div>
                         </div>
                     </div>
-                    <div className="col-sm-1"></div>
+                    <div className="col-sm-4"></div>
                 </div>
-                
+
                 <br />
-            
-                <div id="board" className="row">
-                    <div className="col-sm-5"></div>
-                    <div className="col-sm-2">
+
+                <div id="startButton" className="row">
+                    <div className="col-sm-4"></div>
+                    <div className="col-sm-4">
                         <div id="startButton">
                             <button className="btn btn-primary button-style" onClick={this.start} >Start</button> 
                         </div>
                     </div>
-                    <div className="col-sm-5"></div>
+                    <div className="col-sm-4"></div>
                 </div>
             </div>
         );

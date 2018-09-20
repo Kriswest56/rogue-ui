@@ -8,26 +8,22 @@ body {
   width: 100%;
 }
 
-.col-sm-1 {
-  padding: 0px;
-  margin: 0px;
-}
-
-.jumbotron {
-  padding: 0px;
-  width: 100%
-}
-
-.row {
-  width: 90%;
-  padding: 0px;
-  margin-left: 100px; 
-}
-
 .col-sm-1-custom {
   position: relative;
   min-height: 1px;
   min-width: 1px;
   padding: 0px;
   margin: 0px;
+}
+
+.jumbotron {
+  padding: 0px;
+  width: 100%;
+  position: relative;
+}
+
+.row {
+  width: 90%;
+  padding: 0px;
+  margin-left: 100px; 
 }
