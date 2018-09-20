@@ -5,7 +5,7 @@ import './board.css';
 import BoardSquare from './boardSquare/boardSquare';
 
 const config = require("../../config.json");
-let baseUrl = config.roguelikeServer.baseUrl;
+const baseUrl = config.roguelikeServer.baseUrl;
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -32,7 +32,7 @@ class Board extends React.Component {
 
     state = {
         board: [""], 
-        username: "kristoffer" //must be lower case
+        username: "abc" //must be lower case
     }
 
     //login page to get username
@@ -43,7 +43,6 @@ class Board extends React.Component {
 
     handleKeyDown = (event) => {
         
-        //console.log(event.keyCode + " : " + event.key);
         switch( event.keyCode ) {
 
             case ARROW_LEFT:
@@ -92,7 +91,7 @@ class Board extends React.Component {
         let board = [""];
 
         // call rougelikeServer for board state and login
-        board = await axios.get(`${baseUrl}/game/${this.state.username}/`)
+        let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
             .then(function (response) {
                 return response.data.split("\n")
             })
@@ -102,7 +101,7 @@ class Board extends React.Component {
             });
 
         // generate board
-        board = this.createBoard(board);
+        board = this.createBoard(boardResp);
 
         this.setState({
             board: board
@@ -112,7 +111,6 @@ class Board extends React.Component {
     createBoard = (board) => {
 
         let key = 1;
-
         // Iterate over rows
         let renderedBoard = board.map((boardRow, i) => {
 
@@ -122,7 +120,7 @@ class Board extends React.Component {
             row = row.map((boardPiece) => {
                 key++;
                 return (
-                    <div className="col-md-1" key={key}>
+                    <div className="col-sm-1-custom" key={key}>
                         <BoardSquare 
                             boardPiece={boardPiece}
                         />
@@ -138,23 +136,38 @@ class Board extends React.Component {
     
         });
 
-        return renderedBoard;
-            
+        return renderedBoard;         
     }
 
     render() {
         return (
             <div onKeyPress={this.handleKeyPress}>
-                <h1>Board</h1>
-                <div id="board">
-                    <div className="jumbotron">
+                <div id="header" className="jumbotron">
+                    <h1>Roguelike</h1>
+                </div>
+                
+                <div id="board" className="row">
+                    <div className="col-sm-1"></div>
+                    <div className="col-sm-10">
                         <div>
-                            {this.state.board}
+                            <div>
+                                {this.state.board}
+                            </div>
                         </div>
                     </div>
+                    <div className="col-sm-1"></div>
                 </div>
-                <div id="startButton">
-                    <button onClick={this.start} >Start</button> 
+                
+                <br />
+            
+                <div id="board" className="row">
+                    <div className="col-sm-5"></div>
+                    <div className="col-sm-2">
+                        <div id="startButton">
+                            <button className="btn btn-primary button-style" onClick={this.start} >Start</button> 
+                        </div>
+                    </div>
+                    <div className="col-sm-5"></div>
                 </div>
             </div>
         );

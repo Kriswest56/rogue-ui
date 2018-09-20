@@ -1,6 +1,9 @@
 {
     "appName" : "Roguelike",
     "baseUrl" : "game",
+    "rougeUi" : {
+        "baseUrl" : "http://localhost:8081"
+    },
     "roguelikeServer": {
         "baseUrl" : "http://localhost:3000"
     }

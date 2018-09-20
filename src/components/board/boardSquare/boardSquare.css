@@ -1,9 +1,24 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
 }
 
 .boardPiece {
-  padding-top: 60%;
+    width: 22px;
+    height: 22px;
+}
+
+.piece-player {
+    background-color: antiquewhite;
+    border-style: solid;
+    height: 25px;
+    width: 25px;
+}
+
+.piece-ground {
+    background-color: green;
+    border-style: solid;
+    height: 25px;
+    width: 25px;
 }
