@@ -32,7 +32,7 @@ class Board extends React.Component {
 
     state = {
         board: [""], 
-        username: "abc" //must be lower case
+        username: this.props.username //must be lower case
     }
 
     //login page to get username
@@ -87,6 +87,8 @@ class Board extends React.Component {
     }
 
     start = async () => {
+
+        console.log(this.state.username)
 
         let board = [""];
 

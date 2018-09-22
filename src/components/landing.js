@@ -1,5 +1,7 @@
 import React from 'react';
-import Board from '../components/board/board'
+import Board from '../components/board/board';
+import LoginPage from '../components/login/login';
+
 
 import './landing.css';
 
@@ -9,7 +11,7 @@ class Landing extends React.Component {
         return (
             <div id="landing">
                 <div id="board">
-                    <Board />
+                    <LoginPage />
                 </div>
             </div>
         );
