@@ -1,5 +1,4 @@
 import React from 'react';
-import Board from '../components/board/board';
 import LoginPage from '../components/login/login';
 
 

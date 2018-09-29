@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import './board.css';
 import BoardSquare from './boardSquare/boardSquare';
+import Timer from './timer/timer';
 
 const config = require("../../config.json");
 const baseUrl = config.roguelikeServer.baseUrl;
@@ -32,8 +33,9 @@ class Board extends React.Component {
 
     state = {
         board: [""], 
-        username: this.props.username //must be lower case
-    }
+        username: this.props.username, //must be lower case
+        countdown: 5
+    }   
 
     //login page to get username
     login = () => {}
@@ -88,8 +90,6 @@ class Board extends React.Component {
 
     start = async () => {
 
-        console.log(this.state.username)
-
         let board = [""];
 
         // call rougelikeServer for board state and login
@@ -140,6 +140,10 @@ class Board extends React.Component {
 
         return renderedBoard;         
     }
+
+    sendMoves = (message) => {
+        console.log(message);
+    }
     
     header = () => {
         let header = <div id="header" className="row">
@@ -154,16 +158,28 @@ class Board extends React.Component {
     }
 
     board = () => {
-        let board = <div id="board" className="row">
-                        <div className="col-sm-4"></div>
-                        <div className="col-sm-4">
-                            <div>
+        let board = <div id="game">
+                        <div id="timer" className="row">
+                            <div className="col-sm-4"></div>
+                            <div className="col-sm-4">
+                                <div>
+                                    <Timer 
+                                        countdown={this.state.countdown}
+                                        sendMoves={this.sendMoves}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-sm-4"></div>
+                        </div>
+                        <div id="board" className="row">
+                            <div className="col-sm-4"></div>
+                            <div className="col-sm-4">
                                 <div>
                                     {this.state.board}
                                 </div>
                             </div>
+                            <div className="col-sm-4"></div>
                         </div>
-                        <div className="col-sm-4"></div>
                     </div>
 
         return board;
@@ -185,7 +201,7 @@ class Board extends React.Component {
 
     render() {
         return (
-            <div onKeyPress={this.handleKeyPress}>
+            <div>
                 {this.header()}
                 <br />
                 {this.board()}
