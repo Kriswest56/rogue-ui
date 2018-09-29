@@ -7,7 +7,7 @@ class LoginPage extends React.Component{
         super(props);
 
         this.state = {
-            value:"",
+            username:"",
             nameChosen: false,
         }
     }
@@ -20,7 +20,7 @@ class LoginPage extends React.Component{
                                     <form className = "form-horizontal">
                                         <label className = "control-label">
                                             Username:
-                                            <input type="text" name="name" className = "form-control" value={this.state.value} onChange={this.handleChange} />
+                                            <input type="text" name="name" className = "form-control" value={this.state.username} onChange={this.handleChange} />
                                         </label>
                                     </form>
                                 </div>
@@ -49,7 +49,7 @@ class LoginPage extends React.Component{
     renderBoard = () =>{
         let renderBoard =<div id="board">
                             <Board 
-                                username={this.state.value}    
+                                username={this.state.username}    
                             />
                         </div>
 
@@ -67,19 +67,15 @@ class LoginPage extends React.Component{
     }
 
     handleChange = (event) => {
-        this.setState({value: event.target.value});
+        this.setState({username: event.target.value});
     }
 
     handleSubmit = () => {
-        this.setState({nameChosen:true})
+        this.props.setUserName(this.state.username);
     }
 
     render() {
         let content = this.renderLoginPage()
-        
-        if (this.state.nameChosen){
-            content = this.renderBoard()
-        }
 
         return(
              <div>

@@ -34,6 +34,7 @@ class Board extends React.Component {
     state = {
         board: [""], 
         username: this.props.username, //must be lower case
+        gameStarted: false,
         countdown: 5
     }   
 
@@ -106,7 +107,8 @@ class Board extends React.Component {
         board = this.createBoard(boardResp);
 
         this.setState({
-            board: board
+            board: board,
+            gameStarted: true
         });
     }
 
@@ -171,10 +173,11 @@ class Board extends React.Component {
                             </div>
                             <div className="col-sm-4"></div>
                         </div>
+                        <br />
                         <div id="board" className="row">
                             <div className="col-sm-4"></div>
                             <div className="col-sm-4">
-                                <div>
+                                <div className="board">
                                     {this.state.board}
                                 </div>
                             </div>
@@ -206,7 +209,7 @@ class Board extends React.Component {
                 <br />
                 {this.board()}
                 <br />
-                {this.footer()}
+                {this.state.gameStarted ? "" : this.footer()}
             </div>
         );
     }

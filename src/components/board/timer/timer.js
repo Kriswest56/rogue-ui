@@ -1,5 +1,7 @@
 import React from 'react';
+import CircularProgressbar from 'react-circular-progressbar';
 
+import 'react-circular-progressbar/dist/styles.css';
 import './timer.css';
 
 class Timer extends React.Component {
@@ -23,7 +25,7 @@ class Timer extends React.Component {
             countdown: (this.state.countdown - 1)
         })
 
-        if(this.state.countdown === 0){
+        if(this.state.countdown === -1){
             this.props.sendMoves("Sending moves to server");
             this.setState({
                 countdown: 5
@@ -35,9 +37,28 @@ class Timer extends React.Component {
 
         this.startTimer(this.state.countdown);
 
+        let timeRemaining = "" + this.state.countdown;
+
         return (
-            <div id="timer">
-                <h3>{this.state.countdown}</h3>
+            <div id="timer" className="timer">
+                <CircularProgressbar 
+                    percentage={(this.state.countdown / 5) * 100}
+                    text={timeRemaining}
+                    background
+                    backgroundPadding={6}
+                    styles={{
+                        background: {
+                            fill: '#3e98c7',
+                        },
+                        text: {
+                            fill: '#fff',
+                        },
+                        path: {
+                            stroke: '#fff',
+                        },
+                        trail: { stroke: 'transparent' }
+                    }}
+                />
             </div>
         );
     }

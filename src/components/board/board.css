@@ -16,14 +16,17 @@ body {
     margin: 0px;
 }
 
+.col-sm-4 {
+    float: none;
+    margin: 0 auto;
+}
+
 .jumbotron {
     padding: 0px;
     width: 100%;
     position: relative;
 }
 
-.row {
-    width: 90%;
-    padding: 0px;
-    margin-left: 100px; 
+.board {
+    margin-left: 32%
 }

@@ -9,6 +9,7 @@
     "path": "^0.12.7",
     "popper": "^1.0.1",
     "react": "^16.5.1",
+    "react-circular-progressbar": "^1.0.0",
     "react-dom": "^16.5.1",
     "react-scripts": "1.1.5"
   },
