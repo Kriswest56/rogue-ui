@@ -21,9 +21,6 @@ class Board extends React.Component {
 
     componentWillMount(){
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
-
-        // TODO: log in to game. Refactor later for actual login screen
-        // this.login();
     }
     
     componentWillUnmount() {
@@ -32,14 +29,9 @@ class Board extends React.Component {
 
     state = {
         board: [""], 
-        username: this.props.username //must be lower case
+        username: this.props.username, //must be lower case
+        gameStarted: false,
     }
-
-    //login page to get username
-    login = () => {}
-
-    //timer to count down movement time
-    timer = () => {}
 
     handleKeyDown = (event) => {
         
@@ -88,8 +80,6 @@ class Board extends React.Component {
 
     start = async () => {
 
-        console.log(this.state.username)
-
         let board = [""];
 
         // call rougelikeServer for board state and login
@@ -106,8 +96,11 @@ class Board extends React.Component {
         board = this.createBoard(boardResp);
 
         this.setState({
-            board: board
+            board: board,
+            gameStarted: true
         });
+
+        this.props.gameStarted(5, true);
     }
 
     createBoard = (board) => {
@@ -145,7 +138,7 @@ class Board extends React.Component {
         let header = <div id="header" className="row">
                         <div className="col-sm-12">
                             <div id="header" className="jumbotron">
-                                <h1 className="header-style">ROUGELIKE</h1>
+                                <h1 className="header-style">ROUGE</h1>
                             </div>
                         </div>
                     </div>
@@ -154,16 +147,16 @@ class Board extends React.Component {
     }
 
     board = () => {
-        let board = <div id="board" className="row">
-                        <div className="col-sm-4"></div>
-                        <div className="col-sm-4">
-                            <div>
-                                <div>
+        let board = <div id="game">
+                        <div id="board" className="row">
+                            <div className="col-sm-1"></div>
+                            <div className="col-sm-10">
+                                <div className="board">
                                     {this.state.board}
                                 </div>
                             </div>
+                            <div className="col-sm-1"></div>
                         </div>
-                        <div className="col-sm-4"></div>
                     </div>
 
         return board;
@@ -185,12 +178,12 @@ class Board extends React.Component {
 
     render() {
         return (
-            <div onKeyPress={this.handleKeyPress}>
+            <div>
                 {this.header()}
                 <br />
                 {this.board()}
                 <br />
-                {this.footer()}
+                {this.state.gameStarted ? "" : this.footer()}
             </div>
         );
     }
