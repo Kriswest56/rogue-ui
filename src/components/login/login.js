@@ -1,51 +1,52 @@
 import React from 'react';
+import axios from 'axios';
+
 import Board from '../board/board';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css'
+
+const config = require('../../config.json');
+const baseUrl = config.roguelikeServer.baseUrl;
 
 class LoginPage extends React.Component{
     constructor(props){
         super(props);
 
         this.state = {
-            username:"",
+            username: "",
             nameChosen: false,
         }
     }
 
     loginForm = () => {
-        let loginForm = <div className = 'row'>
-                            <div className = 'col-sm-4' />
-                            <div className = 'col-sm-4'>
-                                <div>
-                                    <form className = "form-horizontal">
-                                        <label className = "control-label">
-                                            Username:
-                                            <input type="text" name="name" className = "form-control" value={this.state.username} onChange={this.handleChange} />
-                                        </label>
-                                    </form>
-                                </div>
-                                <div>
-                                    <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Play</button>
-                                </div>
-                            </div> 
-                            <div className = 'col-sm-4' />
+        let loginForm = (
+
+            <div id="loginForm" className="login-form-style">
+                <div className = "row">
+                    <div className = "col-sm-12">
+                        <div className="center">
+                            <form className = "form-horizontal">
+                                <label className = "control-label">
+                                    <input type="text" name="name" placeholder="Choose Name" className = "form-control form-control" value={this.state.username} onChange={this.handleChange} />
+                                </label>
+                            </form>
                         </div>
+                    </div> 
+                </div>
+                <br />
+                <br />
+                <div className = "row">
+                    <div className = "col-sm-12">
+                        <div className="center">
+                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>START</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        );
 
         return loginForm
-    }
-
-    header = () => {
-        let header =<div className = 'row'>
-                        <div className = 'col-sm-4' />
-                        <div className = 'col-sm-4'>
-                            <h3>Login</h3>
-                        </div>
-                        <div className = 'col-sm-4' />
-                    </div>
-        
-        return header
     }
 
     renderBoard = () =>{
@@ -58,30 +59,31 @@ class LoginPage extends React.Component{
         return renderBoard
     }
 
-    renderLoginPage = () => {
-        let renderLoginPage =<div onKeyPress = {this.handleKeyPress}>
-                                {this.header()}
-                                <br />
-                                {this.loginForm()}
-                                <br />
-                            </div>
-        return renderLoginPage
-    }
-
     handleChange = (event) => {
         this.setState({username: event.target.value});
     }
 
-    handleSubmit = () => {
-        this.props.setUserName(this.state.username);
+    handleSubmit = async () => {
+
+        let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
+        .then(function (response) {
+            return response.data.split("\n");
+        })
+        .catch(function (error) {
+            console.log(error);
+            return ["Error"];
+        });
+        
+        this.props.setUserName(this.state.username, boardResp);
     }
 
     render() {
-        let content = this.renderLoginPage()
-
         return(
              <div>
-                {content}
+                <div onKeyPress = {this.handleKeyPress}>
+                    {this.loginForm()}
+                    <br />
+                </div>
             </div>   
         );
     }

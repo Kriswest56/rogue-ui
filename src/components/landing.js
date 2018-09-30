@@ -11,19 +11,16 @@ class Landing extends React.Component {
     state = {
         username: "",
         countdown: 0,
-        gameStarted: false
+        gameStarted: false,
+        board: [""]
     }
 
-    setUserName = (username) => {
+    setUserName = (username, board) => {
         this.setState({
-            username: username
-        })
-    }
-
-    gameStarted = (countdown, gameStarted) => {
-        this.setState({
-            gameStarted: gameStarted,
-            countdown: countdown
+            username: username,
+            board: board,
+            gameStarted: true,
+            countdown: 5
         })
     }
 
@@ -32,14 +29,16 @@ class Landing extends React.Component {
     }
 
     initBoard = (username) => {
+
         let board = (
             <div className="container">
                 <div className="row">
                     <div className="col-sm-2" />
-                    <div className="col-sm-8">
+                    <div className="col-sm-8 center">
                         <Board 
                             username={username}
                             gameStarted={this.gameStarted}
+                            board={this.state.board}
                         />
                     </div>
                     <div className="col-sm-2" />
@@ -94,6 +93,8 @@ class Landing extends React.Component {
         } else {
             content = this.initLogin();
         }
+
+        console.log(username);
 
         return (
             <div id="landing" className="landing">

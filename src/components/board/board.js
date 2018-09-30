@@ -19,18 +19,23 @@ const PATH_DOWN = "down";
 
 class Board extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        let board = this.createBoard(this.props.board);
+
+        this.state = {
+            board: board,
+            username: this.props.username, //must be lower case
+        }
+    }
+
     componentWillMount(){
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
     
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleKeyDown.bind(this));
-    }
-
-    state = {
-        board: [""], 
-        username: this.props.username, //must be lower case
-        gameStarted: false,
     }
 
     handleKeyDown = (event) => {
@@ -59,6 +64,7 @@ class Board extends React.Component {
     }
 
     actionHandler = async (direction) => {
+
         let board = [""];
 
         // call rougelikeServer and perform movement
@@ -76,31 +82,6 @@ class Board extends React.Component {
         this.setState({
             board: board
         });
-    }
-
-    start = async () => {
-
-        let board = [""];
-
-        // call rougelikeServer for board state and login
-        let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
-            .then(function (response) {
-                return response.data.split("\n")
-            })
-            .catch(function (error) {
-                console.log(error);
-                return ["Error"];
-            });
-
-        // generate board
-        board = this.createBoard(boardResp);
-
-        this.setState({
-            board: board,
-            gameStarted: true
-        });
-
-        this.props.gameStarted(5, true);
     }
 
     createBoard = (board) => {
@@ -150,26 +131,10 @@ class Board extends React.Component {
         return board;
     }
 
-    footer = () => {
-        let footer = <div id="footer" className="row">
-                        <div className="col-sm-4"></div>
-                        <div className="col-sm-4">
-                            <div id="startButton">
-                                <button className="btn btn-primary button-style" onClick={this.start} >Start</button> 
-                            </div>
-                        </div>
-                        <div className="col-sm-4"></div>
-                    </div>
-
-        return footer
-    }
-
     render() {
         return (
-            <div>
-                {this.board()}
-                <br />
-                {this.state.gameStarted ? "" : this.footer()}
+            <div className="center">
+                {this.state.board}
             </div>
         );
     }

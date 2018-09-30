@@ -8,6 +8,15 @@ body {
     font-family: sans-serif;
 }
 
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 .col-sm-1-custom {
     position: relative;
     min-height: 1px;
@@ -31,10 +40,10 @@ body {
     margin-left: 32%
 }
 
-.row{
+.row {
     width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     flex-wrap: nowrap;
-  }
+}
