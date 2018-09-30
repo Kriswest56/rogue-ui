@@ -118,13 +118,11 @@ class Board extends React.Component {
     board = () => {
         let board = <div id="game">
                         <div id="board" className="row">
-                            <div className="col-sm-1"></div>
-                            <div className="col-sm-10">
+                            <div className="col-sm-12">
                                 <div className="board">
                                     {this.state.board}
                                 </div>
                             </div>
-                            <div className="col-sm-1"></div>
                         </div>
                     </div>
 
