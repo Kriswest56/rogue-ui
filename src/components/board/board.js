@@ -112,7 +112,7 @@ class Board extends React.Component {
     
         });
 
-        return renderedBoard;         
+        return renderedBoard;
     }
 
     board = () => {

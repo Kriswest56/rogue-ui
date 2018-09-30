@@ -4,10 +4,14 @@ import './boardSquare.css';
 
 const GROUND = ".";
 const PLAYER = "@";
+const WALL = '#';
+const WATER = '~'
 
 const GROUND_CSS = "piece-ground";
 const PLAYER_CSS = "piece-player";
-const DEFAULT_CSS = "piece-player";
+const WALL_CSS = "piece-wall";
+const WATER_CSS = "piece-water";
+const DEFAULT_CSS = "piece-ground";
 
 class BoardSquare extends React.Component {
 
@@ -18,6 +22,14 @@ class BoardSquare extends React.Component {
         switch(boardPiece){
             case GROUND : 
                 pieceClass = GROUND_CSS;
+                break;
+
+            case WALL :
+                pieceClass = WALL_CSS;
+                break;
+
+            case WATER :
+                pieceClass = WATER_CSS;
                 break;
 
             case PLAYER : 
