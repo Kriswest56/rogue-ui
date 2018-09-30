@@ -1,6 +1,8 @@
 import React from 'react';
 import Board from '../board/board';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './login.css'
 
 class LoginPage extends React.Component{
     constructor(props){

@@ -3,7 +3,6 @@ import React from 'react';
 import axios from 'axios';
 import './board.css';
 import BoardSquare from './boardSquare/boardSquare';
-import Timer from './timer/timer';
 
 const config = require("../../config.json");
 const baseUrl = config.roguelikeServer.baseUrl;
@@ -142,10 +141,6 @@ class Board extends React.Component {
 
         return renderedBoard;         
     }
-
-    sendMoves = (message) => {
-        console.log(message);
-    }
     
     header = () => {
         let header = <div id="header" className="row">
@@ -161,27 +156,14 @@ class Board extends React.Component {
 
     board = () => {
         let board = <div id="game">
-                        <div id="timer" className="row">
-                            <div className="col-sm-4"></div>
-                            <div className="col-sm-4">
-                                <div>
-                                    <Timer 
-                                        countdown={this.state.countdown}
-                                        sendMoves={this.sendMoves}
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-sm-4"></div>
-                        </div>
-                        <br />
                         <div id="board" className="row">
-                            <div className="col-sm-4"></div>
-                            <div className="col-sm-4">
+                            <div className="col-sm-1"></div>
+                            <div className="col-sm-10">
                                 <div className="board">
                                     {this.state.board}
                                 </div>
                             </div>
-                            <div className="col-sm-4"></div>
+                            <div className="col-sm-1"></div>
                         </div>
                     </div>
 

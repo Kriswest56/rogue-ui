@@ -1,8 +1,9 @@
 import React from 'react';
 import LoginPage from './login/login';
 import Board from './board/board'
+import Timer from './timer/timer'
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './landing.css';
 
 class Landing extends React.Component {
@@ -17,8 +18,34 @@ class Landing extends React.Component {
         })
     }
 
+    sendMoves = (message) => {
+        console.log(message);
+    }
+
     initBoard = (username) => {
-        let board = <Board username={username} />
+        let board = (
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-2" />
+                    <div className="col-sm-8">
+                        <Board 
+                            username={username}
+                        />
+                    </div>
+                    <div className="col-sm-2" />
+                </div>
+                <div className="row">
+                    <div className="col-sm-4" />
+                    <div className="col-sm-4">
+                        <Timer 
+                            sendMoves={this.sendMoves}
+                            countdown={5}
+                        />
+                    </div>
+                    <div className="col-sm-4" />
+                </div>
+            </div>
+            );
 
         return board;
     }
