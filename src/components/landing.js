@@ -9,12 +9,21 @@ import './landing.css';
 class Landing extends React.Component {
 
     state = {
-        username: ""
+        username: "",
+        countdown: 0,
+        gameStarted: false
     }
 
     setUserName = (username) => {
         this.setState({
             username: username
+        })
+    }
+
+    gameStarted = (countdown, gameStarted) => {
+        this.setState({
+            gameStarted: gameStarted,
+            countdown: countdown
         })
     }
 
@@ -30,24 +39,33 @@ class Landing extends React.Component {
                     <div className="col-sm-8">
                         <Board 
                             username={username}
+                            gameStarted={this.gameStarted}
                         />
                     </div>
                     <div className="col-sm-2" />
                 </div>
+                {this.startTimer()}
+            </div>
+            );
+
+        return board;
+    }
+
+    startTimer = () => {
+        if(this.state.gameStarted){
+            return (
                 <div className="row">
                     <div className="col-sm-4" />
                     <div className="col-sm-4">
                         <Timer 
                             sendMoves={this.sendMoves}
-                            countdown={5}
+                            countdown={this.state.countdown}
                         />
                     </div>
                     <div className="col-sm-4" />
                 </div>
-            </div>
             );
-
-        return board;
+        }
     }
 
     initLogin = () => {

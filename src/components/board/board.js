@@ -21,9 +21,6 @@ class Board extends React.Component {
 
     componentWillMount(){
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
-
-        // TODO: log in to game. Refactor later for actual login screen
-        // this.login();
     }
     
     componentWillUnmount() {
@@ -34,14 +31,7 @@ class Board extends React.Component {
         board: [""], 
         username: this.props.username, //must be lower case
         gameStarted: false,
-        countdown: 5
-    }   
-
-    //login page to get username
-    login = () => {}
-
-    //timer to count down movement time
-    timer = () => {}
+    }
 
     handleKeyDown = (event) => {
         
@@ -109,6 +99,8 @@ class Board extends React.Component {
             board: board,
             gameStarted: true
         });
+
+        this.props.gameStarted(5, true);
     }
 
     createBoard = (board) => {
@@ -146,7 +138,7 @@ class Board extends React.Component {
         let header = <div id="header" className="row">
                         <div className="col-sm-12">
                             <div id="header" className="jumbotron">
-                                <h1 className="header-style">ROUGELIKE</h1>
+                                <h1 className="header-style">ROUGE</h1>
                             </div>
                         </div>
                     </div>

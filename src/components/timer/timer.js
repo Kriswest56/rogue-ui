@@ -4,6 +4,8 @@ import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './timer.css';
 
+const TURN_LENGTH = 5;
+
 class Timer extends React.Component {
 
     constructor(props) {
@@ -42,7 +44,7 @@ class Timer extends React.Component {
         return (
             <div id="timer" className="timer">
                 <CircularProgressbar 
-                    percentage={(this.state.countdown / 5) * 100}
+                    percentage={(this.state.countdown / TURN_LENGTH) * 100}
                     text={timeRemaining}
                     background
                     backgroundPadding={6}
