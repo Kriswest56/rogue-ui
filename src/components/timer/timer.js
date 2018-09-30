@@ -50,13 +50,13 @@ class Timer extends React.Component {
                     backgroundPadding={6}
                     styles={{
                         background: {
-                            fill: '#3e98c7',
+                            fill: '#234323',
                         },
                         text: {
-                            fill: '#fff',
+                            fill: '#d8d8d8',
                         },
                         path: {
-                            stroke: '#fff',
+                            stroke: '#d8d8d8',
                         },
                         trail: { stroke: 'transparent' }
                     }}

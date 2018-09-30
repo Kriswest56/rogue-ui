@@ -133,18 +133,6 @@ class Board extends React.Component {
 
         return renderedBoard;         
     }
-    
-    header = () => {
-        let header = <div id="header" className="row">
-                        <div className="col-sm-12">
-                            <div id="header" className="jumbotron">
-                                <h1 className="header-style">ROUGE</h1>
-                            </div>
-                        </div>
-                    </div>
-
-        return header;
-    }
 
     board = () => {
         let board = <div id="game">
@@ -179,8 +167,6 @@ class Board extends React.Component {
     render() {
         return (
             <div>
-                {this.header()}
-                <br />
                 {this.board()}
                 <br />
                 {this.state.gameStarted ? "" : this.footer()}

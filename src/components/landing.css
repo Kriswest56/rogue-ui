@@ -1,5 +1,40 @@
+.background {
+    background-color: #d8d8d8;
+    height: stretch;
+    filter: drop-shadow(0px 00px 4px #000000);
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
 }
+
+.container-style {
+    background-color: #234323;
+    color: #d8d8d8
+}
+
+.header-style {
+    font-family: monospace;
+    font-size: 6em;
+    font-weight: bolder;
+}
+
+.landing {
+    background: #555555;
+    height: stretch;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.timer-style {
+    padding: 20%;
+}
+

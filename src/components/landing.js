@@ -44,7 +44,6 @@ class Landing extends React.Component {
                     </div>
                     <div className="col-sm-2" />
                 </div>
-                {this.startTimer()}
             </div>
             );
 
@@ -52,18 +51,13 @@ class Landing extends React.Component {
     }
 
     startTimer = () => {
+        console.log(this.state.gameStarted);
         if(this.state.gameStarted){
             return (
-                <div className="row">
-                    <div className="col-sm-4" />
-                    <div className="col-sm-4">
-                        <Timer 
-                            sendMoves={this.sendMoves}
-                            countdown={this.state.countdown}
-                        />
-                    </div>
-                    <div className="col-sm-4" />
-                </div>
+                <Timer 
+                    sendMoves={this.sendMoves}
+                    countdown={this.state.countdown}
+                />
             );
         }
     }
@@ -72,6 +66,23 @@ class Landing extends React.Component {
         let login = <LoginPage setUserName={this.setUserName} />
 
         return login;
+    }
+
+    header = () => {
+        let header = <div id="container" className="row jumbotron container-style">
+                        <div className="col-sm-10">
+                            <div id="header">
+                                <label className="header-style">ROUGE</label>
+                            </div>
+                        </div>
+                        <div className="col-sm-2">
+                            <div className="vertical-center timer-style">
+                                {this.startTimer()}
+                            </div>
+                        </div>
+                    </div>
+
+        return header;
     }
 
     render() {
@@ -85,8 +96,12 @@ class Landing extends React.Component {
         }
 
         return (
-            <div id="landing">
-                {content}
+            <div id="landing" className="landing">
+                <div className="container background">
+                    {this.header()}
+                    <br />
+                    {content}
+                </div>
             </div>
         );
     }
