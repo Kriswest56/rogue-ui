@@ -2,6 +2,8 @@ import React from 'react';
 import Board from '../board/board';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import './login.css';
+
 class LoginPage extends React.Component{
     constructor(props){
         super(props)
@@ -21,7 +23,7 @@ class LoginPage extends React.Component{
                                          Username:
                                         <input type="text" name="name" className = "form-control" value={this.state.value} onChange={this.handleChange} />
                                     </label>
-                                   <button type = "button" className = "btn btn-default" onClick = {this.handleSubmit}> HALLO</button>
+                                   <button type = "button" className = "btn btn-default" onClick = {this.handleSubmit}> Submit </button>
                                 </form>
                             </div>
                             </div> 
