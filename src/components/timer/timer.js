@@ -45,7 +45,7 @@ class Timer extends React.Component {
             <div id="timer" className="timer">
                 <CircularProgressbar 
                     percentage={(this.state.nextUpdate / TURN_LENGTH) * 105}
-                    text={timeRemaining/1000}
+                    text={Math.ceil(timeRemaining/1000)}
                     background
                     backgroundPadding={6}
                     styles={{
