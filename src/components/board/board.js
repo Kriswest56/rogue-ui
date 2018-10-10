@@ -31,9 +31,9 @@ class Board extends React.Component {
         }
     }
 
-    componentDidUpdate(props){
+    componentDidUpdate(){
         let board = this.createBoard(this.props.board);
-        
+
         this.state.board = board;
         this.state.moveChosen = false;
     }
@@ -71,6 +71,9 @@ class Board extends React.Component {
         }
     }
 
+    /**
+     * This function will send a move to the server to be queued
+     */
     actionHandler = async (direction) => {
 
         if(!this.state.moveChosen){
@@ -83,11 +86,13 @@ class Board extends React.Component {
                 console.log(error);
                 return ["Error"];
             });
+
+            this.state.moveChosen = true;
+
         } else {
             console.warn("Move already chosen");
         }
 
-        this.state.moveChosen = true;
     }
 
     createBoard = (board) => {

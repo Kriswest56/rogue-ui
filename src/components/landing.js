@@ -56,9 +56,6 @@ class Landing extends React.Component {
     }
 
     initBoard = (username) => {
-
-        console.log(this.state.board);
-
         let board = (
             <div className="container">
                 <div className="row">
@@ -79,7 +76,6 @@ class Landing extends React.Component {
     }
 
     startTimer = () => {
-        console.log(this.state.gameStarted);
         if(this.state.gameStarted){
             return (
                 <Timer 
@@ -122,8 +118,6 @@ class Landing extends React.Component {
         } else {
             content = this.initLogin();
         }
-
-        console.log(username);
 
         return (
             <div id="landing" className="landing">
