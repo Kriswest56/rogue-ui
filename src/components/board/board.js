@@ -27,7 +27,15 @@ class Board extends React.Component {
         this.state = {
             board: board,
             username: this.props.username, //must be lower case
+            moveChosen: false
         }
+    }
+
+    componentDidUpdate(props){
+        let board = this.createBoard(this.props.board);
+        
+        this.state.board = board;
+        this.state.moveChosen = false;
     }
 
     componentWillMount(){
@@ -65,23 +73,21 @@ class Board extends React.Component {
 
     actionHandler = async (direction) => {
 
-        let board = [""];
-
-        // call rougelikeServer and perform movement
-        board = await axios.get(`${baseUrl}/game/${this.state.username}/${direction}`)
+        if(!this.state.moveChosen){
+            // call rougelikeServer and perform movement
+            await axios.get(`${baseUrl}/game/${this.state.username}/${direction}`)
             .then(function (response) {
-                return response.data.split("\n")
+                return response.data.board.split("\n");
             })
             .catch(function (error) {
                 console.log(error);
                 return ["Error"];
             });
+        } else {
+            console.warn("Move already chosen");
+        }
 
-        board = this.createBoard(board);
-
-        this.setState({
-            board: board
-        });
+        this.state.moveChosen = true;
     }
 
     createBoard = (board) => {

@@ -4,7 +4,7 @@ import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './timer.css';
 
-const TURN_LENGTH = 5;
+const TURN_LENGTH = 5000;
 
 class Timer extends React.Component {
 
@@ -12,40 +12,40 @@ class Timer extends React.Component {
         super(props);
 
         this.state = {
-            countdown: props.countdown
+            nextUpdate: props.nextUpdate
         }
 
     }
 
     startTimer = () => {
         clearInterval(this.timer)
-        this.timer = setInterval(this.tick.bind(this), 1000)
+        this.timer = setInterval(this.tick.bind(this), 100);
     } 
 
     tick = () => {
         this.setState({
-            countdown: (this.state.countdown - 1)
+            nextUpdate: (this.state.nextUpdate - 100)
         })
 
-        if(this.state.countdown === -1){
-            this.props.sendMoves("Sending moves to server");
+        if(this.state.nextUpdate < 0){
+            this.props.getBoard();
             this.setState({
-                countdown: 5
+                nextUpdate: 5000
             })
         }
     }
 
     render() {
 
-        this.startTimer(this.state.countdown);
+        this.startTimer(this.state.nextUpdate);
 
-        let timeRemaining = "" + this.state.countdown;
+        let timeRemaining = "" + this.state.nextUpdate;
 
         return (
             <div id="timer" className="timer">
                 <CircularProgressbar 
-                    percentage={(this.state.countdown / TURN_LENGTH) * 100}
-                    text={timeRemaining}
+                    percentage={(this.state.nextUpdate / TURN_LENGTH) * 105}
+                    text={timeRemaining/1000}
                     background
                     backgroundPadding={6}
                     styles={{

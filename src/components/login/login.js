@@ -67,7 +67,7 @@ class LoginPage extends React.Component{
 
         let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
         .then(function (response) {
-            return response.data.split("\n");
+            return response.data;
         })
         .catch(function (error) {
             console.log(error);

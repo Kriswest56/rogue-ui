@@ -1,10 +1,15 @@
 import React from 'react';
+import axios from 'axios';
 import LoginPage from './login/login';
 import Board from './board/board'
 import Timer from './timer/timer'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './landing.css';
+
+const config = require("../config.json");
+const baseUrl = config.roguelikeServer.baseUrl;
+
 
 class Landing extends React.Component {
 
@@ -15,20 +20,44 @@ class Landing extends React.Component {
         board: [""]
     }
 
-    setUserName = (username, board) => {
+    setUserName = (username, data) => {
+
+        let board = data.board.split("\n");
+        let nextUpdate = data.nextUpdate;
+
         this.setState({
             username: username,
             board: board,
             gameStarted: true,
-            countdown: 5
+            nextUpdate: nextUpdate
         })
     }
 
-    sendMoves = (message) => {
-        console.log(message);
+    getBoard = async () => {
+
+        let resp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+            return ["Error"];
+        });
+
+        let board = resp.board.split("\n");
+
+        this.setState({
+            username: this.state.username,
+            board: board,
+            gameStarted: true,
+            countdown: 5
+        })
+
     }
 
     initBoard = (username) => {
+
+        console.log(this.state.board);
 
         let board = (
             <div className="container">
@@ -54,8 +83,8 @@ class Landing extends React.Component {
         if(this.state.gameStarted){
             return (
                 <Timer 
-                    sendMoves={this.sendMoves}
-                    countdown={this.state.countdown}
+                    getBoard={this.getBoard}
+                    nextUpdate={this.state.nextUpdate}
                 />
             );
         }
