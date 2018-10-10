@@ -80,9 +80,12 @@ class Board extends React.Component {
             // call rougelikeServer and perform movement
             await axios.get(`${baseUrl}/game/${this.state.username}/${direction}`)
             .then(function (response) {
-                return response.data.board.split("\n");
+                if (response.data && response.data.board) {
+                    return response.data.board.split("\n");
+                }
+                return ["Error"];
             })
-            .catch(function (error) {
+            .catch (function (error) {
                 console.log(error);
                 return ["Error"];
             });

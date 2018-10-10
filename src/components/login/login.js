@@ -60,7 +60,9 @@ class LoginPage extends React.Component{
     }
 
     handleChange = (event) => {
-        this.setState({username: event.target.value});
+        this.setState({
+            username: event.target.value
+        });
     }
 
     handleSubmit = async () => {

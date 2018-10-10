@@ -22,7 +22,7 @@ class Landing extends React.Component {
 
     setUserName = (username, data) => {
 
-        let board = data.board.split("\n");
+        let board = data.board ? data.board.split("\n") : ["Error"];
         let nextUpdate = data.nextUpdate;
 
         this.setState({
@@ -30,53 +30,52 @@ class Landing extends React.Component {
             board: board,
             gameStarted: true,
             nextUpdate: nextUpdate
-        })
+        });
     }
 
+    // This refreshes the board state every 5 seconds
     getBoard = async () => {
 
-        let resp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
+        let board = await axios.get(`${baseUrl}/game/${this.state.username}/`)
         .then(function (response) {
-            return response.data;
+            return response.board.split("\n");
         })
         .catch(function (error) {
             console.log(error);
             return ["Error"];
         });
 
-        let board = resp.board.split("\n");
-
         this.setState({
             username: this.state.username,
             board: board,
             gameStarted: true,
             countdown: 5
-        })
+        });
 
     }
 
     initBoard = (username) => {
         let board = (
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm-2" />
-                    <div className="col-sm-8 center">
-                        <Board 
-                            username={username}
-                            gameStarted={this.gameStarted}
-                            board={this.state.board}
-                        />
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-2" />
+                        <div className="col-sm-8 center">
+                            <Board 
+                                username={username}
+                                gameStarted={this.gameStarted}
+                                board={this.state.board}
+                            />
+                        </div>
+                        <div className="col-sm-2" />
                     </div>
-                    <div className="col-sm-2" />
                 </div>
-            </div>
             );
 
         return board;
     }
 
     startTimer = () => {
-        if(this.state.gameStarted){
+        if (this.state.gameStarted) {
             return (
                 <Timer 
                     getBoard={this.getBoard}
@@ -87,7 +86,9 @@ class Landing extends React.Component {
     }
 
     initLogin = () => {
-        let login = <LoginPage setUserName={this.setUserName} />
+        let login = <LoginPage 
+                        setUserName={this.setUserName} 
+                    />
 
         return login;
     }

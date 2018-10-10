@@ -44,7 +44,7 @@ class Timer extends React.Component {
         return (
             <div id="timer" className="timer">
                 <CircularProgressbar 
-                    percentage={(this.state.nextUpdate / TURN_LENGTH) * 105}
+                    percentage={(this.state.nextUpdate / TURN_LENGTH) * 110}
                     text={Math.ceil(timeRemaining/1000)}
                     background
                     backgroundPadding={6}
@@ -58,7 +58,9 @@ class Timer extends React.Component {
                         path: {
                             stroke: '#d8d8d8',
                         },
-                        trail: { stroke: 'transparent' }
+                        trail: { 
+                            stroke: 'transparent' 
+                        }
                     }}
                 />
             </div>
