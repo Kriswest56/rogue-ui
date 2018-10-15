@@ -15,33 +15,37 @@ const DEFAULT_CSS = "piece-ground";
 
 class BoardSquare extends React.Component {
 
-    getPieceDisplay = (boardPiece) => {
+    constructor(props) {
+        super(props);
 
-        let pieceClass = ""
+        this.getPieceDisplay = (boardPiece) => {
 
-        switch(boardPiece){
-            case GROUND : 
-                pieceClass = GROUND_CSS;
-                break;
+            let pieceClass = ""
 
-            case WALL :
-                pieceClass = WALL_CSS;
-                break;
+            switch (boardPiece) {
+                case GROUND :
+                    pieceClass = GROUND_CSS;
+                    break;
 
-            case WATER :
-                pieceClass = WATER_CSS;
-                break;
+                case WALL :
+                    pieceClass = WALL_CSS;
+                    break;
 
-            case PLAYER : 
-                pieceClass = PLAYER_CSS;
-                break;
+                case WATER :
+                    pieceClass = WATER_CSS;
+                    break;
 
-            default :
-                pieceClass = DEFAULT_CSS;
-                break
+                case PLAYER :
+                    pieceClass = PLAYER_CSS;
+                    break;
+
+                default :
+                    pieceClass = DEFAULT_CSS;
+                    break
+            }
+
+            return pieceClass;
         }
-
-        return pieceClass;
     }
 
     render() {

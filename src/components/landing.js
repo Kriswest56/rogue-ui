@@ -13,54 +13,53 @@ const baseUrl = config.roguelikeServer.baseUrl;
 
 class Landing extends React.Component {
 
-    state = {
-        username: "",
-        countdown: 0,
-        gameStarted: false,
-        board: [""]
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            countdown: 0,
+            gameStarted: false,
+            board: [""]
+        }
+        this.setUserName = (username, data) => {
 
-    setUserName = (username, data) => {
+            let board = data.board ? data.board.split("\n") : ["Error"];
+            let nextUpdate = data.nextUpdate;
 
-        let board = data.board ? data.board.split("\n") : ["Error"];
-        let nextUpdate = data.nextUpdate;
+            this.setState({
+                username: username,
+                board: board,
+                gameStarted: true,
+                nextUpdate: nextUpdate
+            });
+        }
+        // This refreshes the board state every 5 seconds
+        this.getBoard = async () => {
 
-        this.setState({
-            username: username,
-            board: board,
-            gameStarted: true,
-            nextUpdate: nextUpdate
-        });
-    }
+            let board = await axios.get(`${baseUrl}/game/${this.state.username}/`)
+                .then(function (response) {
+                    return response.board.split("\n");
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    return ["Error"];
+                });
 
-    // This refreshes the board state every 5 seconds
-    getBoard = async () => {
+            this.setState({
+                username: this.state.username,
+                board: board,
+                gameStarted: true,
+                countdown: 5
+            });
 
-        let board = await axios.get(`${baseUrl}/game/${this.state.username}/`)
-        .then(function (response) {
-            return response.board.split("\n");
-        })
-        .catch(function (error) {
-            console.log(error);
-            return ["Error"];
-        });
-
-        this.setState({
-            username: this.state.username,
-            board: board,
-            gameStarted: true,
-            countdown: 5
-        });
-
-    }
-
-    initBoard = (username) => {
-        let board = (
+        }
+        this.initBoard = (username) => {
+            let board = (
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-2" />
                         <div className="col-sm-8 center">
-                            <Board 
+                            <Board
                                 username={username}
                                 gameStarted={this.gameStarted}
                                 board={this.state.board}
@@ -71,45 +70,45 @@ class Landing extends React.Component {
                 </div>
             );
 
-        return board;
-    }
+            return board;
+        }
 
-    startTimer = () => {
-        if (this.state.gameStarted) {
-            return (
-                <Timer 
-                    getBoard={this.getBoard}
-                    nextUpdate={this.state.nextUpdate}
-                />
-            );
+        this.startTimer = () => {
+            if (this.state.gameStarted) {
+                return (
+                    <Timer
+                        getBoard={this.getBoard}
+                        nextUpdate={this.state.nextUpdate}
+                    />
+                );
+            }
+        }
+
+        this.initLogin = () => {
+            let login = <LoginPage
+                setUserName={this.setUserName}
+            />
+
+            return login;
+        }
+
+        this.header = () => {
+            let header = <div id="container" className="row jumbotron container-style">
+                <div className="col-sm-10">
+                    <div id="header">
+                        <label className="header-style">ROUGE</label>
+                    </div>
+                </div>
+                <div className="col-sm-2">
+                    <div className="vertical-center timer-style">
+                        {this.startTimer()}
+                    </div>
+                </div>
+            </div>
+
+            return header;
         }
     }
-
-    initLogin = () => {
-        let login = <LoginPage 
-                        setUserName={this.setUserName} 
-                    />
-
-        return login;
-    }
-
-    header = () => {
-        let header = <div id="container" className="row jumbotron container-style">
-                        <div className="col-sm-10">
-                            <div id="header">
-                                <label className="header-style">ROUGE</label>
-                            </div>
-                        </div>
-                        <div className="col-sm-2">
-                            <div className="vertical-center timer-style">
-                                {this.startTimer()}
-                            </div>
-                        </div>
-                    </div>
-
-        return header;
-    }
-
     render() {
         let username = this.state.username;
         let content = "";
@@ -130,6 +129,7 @@ class Landing extends React.Component {
             </div>
         );
     }
+
 
 }
 
