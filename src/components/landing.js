@@ -21,94 +21,105 @@ class Landing extends React.Component {
             gameStarted: false,
             board: [""]
         }
-        this.setUserName = (username, data) => {
 
-            let board = data.board ? data.board.split("\n") : ["Error"];
-            let nextUpdate = data.nextUpdate;
+        this.setUserName = this.setUserName.bind(this);
+        this.getBoard = this.getBoard.bind(this);
+        this.initBoard = this.initBoard.bind(this);
+        this.startTimer = this.startTimer.bind(this);
+        this.initLogin = this.initLogin.bind(this);
+        this.header = this.header.bind(this);
+    }
 
-            this.setState({
-                username: username,
-                board: board,
-                gameStarted: true,
-                nextUpdate: nextUpdate
+    setUserName(username, data) {
+
+        let board = data.board ? data.board.split("\n") : ["Error"];
+        let nextUpdate = data.nextUpdate;
+
+        this.setState({
+            username: username,
+            board: board,
+            gameStarted: true,
+            nextUpdate: nextUpdate
+        });
+    }
+
+    // This refreshes the board state every 5 seconds
+    async getBoard() {
+
+        let board = await axios.get(`${baseUrl}/game/${this.state.username}/`)
+            .then(function (response) {
+                return response.data.board.split("\n");
+            })
+            .catch(function (error) {
+                console.log(error);
+                return ["Error"];
             });
-        }
-        // This refreshes the board state every 5 seconds
-        this.getBoard = async () => {
 
-            let board = await axios.get(`${baseUrl}/game/${this.state.username}/`)
-                .then(function (response) {
-                    return response.board.split("\n");
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    return ["Error"];
-                });
+        this.setState({
+            username: this.state.username,
+            board: board,
+            gameStarted: true,
+            countdown: 5
+        });
 
-            this.setState({
-                username: this.state.username,
-                board: board,
-                gameStarted: true,
-                countdown: 5
-            });
+    }
 
-        }
-        this.initBoard = (username) => {
-            let board = (
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-2" />
-                        <div className="col-sm-8 center">
-                            <Board
-                                username={username}
-                                gameStarted={this.gameStarted}
-                                board={this.state.board}
-                            />
-                        </div>
-                        <div className="col-sm-2" />
+    initBoard(username) {
+        let board = (
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-2" />
+                    <div className="col-sm-8 center">
+                        <Board
+                            username={username}
+                            gameStarted={this.gameStarted}
+                            board={this.state.board}
+                        />
                     </div>
-                </div>
-            );
-
-            return board;
-        }
-
-        this.startTimer = () => {
-            if (this.state.gameStarted) {
-                return (
-                    <Timer
-                        getBoard={this.getBoard}
-                        nextUpdate={this.state.nextUpdate}
-                    />
-                );
-            }
-        }
-
-        this.initLogin = () => {
-            let login = <LoginPage
-                setUserName={this.setUserName}
-            />
-
-            return login;
-        }
-
-        this.header = () => {
-            let header = <div id="container" className="row jumbotron container-style">
-                <div className="col-sm-10">
-                    <div id="header">
-                        <label className="header-style">ROUGE</label>
-                    </div>
-                </div>
-                <div className="col-sm-2">
-                    <div className="vertical-center timer-style">
-                        {this.startTimer()}
-                    </div>
+                    <div className="col-sm-2" />
                 </div>
             </div>
+        );
 
-            return header;
+        return board;
+    }
+
+    startTimer() {
+        if (this.state.gameStarted) {
+            return (
+                <Timer
+                    getBoard={this.getBoard}
+                    nextUpdate={this.state.nextUpdate}
+                />
+            );
         }
     }
+
+    initLogin() {
+        let login = <LoginPage
+            setUserName={this.setUserName}
+        />
+
+        return login;
+    }
+
+    header() {
+        let header = <div id="container" className="row jumbotron container-style">
+            <div className="col-sm-10">
+                <div id="header">
+                    <label className="header-style">ROUGE</label>
+                </div>
+            </div>
+            <div className="col-sm-2">
+                <div className="vertical-center timer-style">
+                    {this.startTimer()}
+                </div>
+            </div>
+        </div>
+
+        return header;
+    }
+
     render() {
         let username = this.state.username;
         let content = "";
@@ -129,8 +140,6 @@ class Landing extends React.Component {
             </div>
         );
     }
-
-
 }
 
 export default Landing;

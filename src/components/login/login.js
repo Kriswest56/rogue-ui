@@ -17,65 +17,71 @@ class LoginPage extends React.Component{
             username: "",
             nameChosen: false,
         }
-        this.loginForm = () => {
-            let loginForm = (
 
-                <div id="loginForm" className="login-form-style">
-                    <div className = "row">
-                        <div className = "col-sm-12">
-                            <div className="center">
-                                <form className = "form-horizontal">
-                                    <label className = "control-label">
-                                        <input type="text" name="name" placeholder="Choose Name" className = "form-control form-control" value={this.state.username} onChange={this.handleChange} />
-                                    </label>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <div className = "row">
-                        <div className = "col-sm-12">
-                            <div className="center">
-                                <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>START</button>
-                            </div>
+        this.loginForm = this.loginForm.bind(this);
+        this.renderBoard = this.renderBoard.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    loginForm() {
+        let loginForm = (
+
+            <div id="loginForm" className="login-form-style">
+                <div className = "row">
+                    <div className = "col-sm-12">
+                        <div className="center">
+                            <form className = "form-horizontal">
+                                <label className = "control-label">
+                                    <input type="text" name="name" placeholder="Choose Name" className = "form-control form-control" value={this.state.username} onChange={this.handleChange} />
+                                </label>
+                            </form>
                         </div>
                     </div>
                 </div>
-            );
-
-            return loginForm
-        }
-
-        this.renderBoard = () =>{
-            let renderBoard =<div id="board">
-                <Board
-                    username={this.state.username}
-                />
+                <br />
+                <br />
+                <div className = "row">
+                    <div className = "col-sm-12">
+                        <div className="center">
+                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>START</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        );
 
-            return renderBoard
-        }
+        return loginForm
+    }
 
-        this.handleChange = (event) => {
-            this.setState({
-                username: event.target.value
+    renderBoard() {
+        let renderBoard =<div id="board">
+            <Board
+                username={this.state.username}
+            />
+        </div>
+
+        return renderBoard
+    }
+
+    handleChange(event) {
+        this.setState({
+            username: event.target.value
+        });
+    }
+
+    async handleSubmit() {
+
+        let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+                return ["Error"];
             });
-        }
 
-        this.handleSubmit = async () => {
-
-            let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
-                .then(function (response) {
-                    return response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    return ["Error"];
-                });
-
-            this.props.setUserName(this.state.username, boardResp);
-        }
+        this.props.setUserName(this.state.username, boardResp);
     }
 
     render() {

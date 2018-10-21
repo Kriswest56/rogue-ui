@@ -18,34 +18,36 @@ class BoardSquare extends React.Component {
     constructor(props) {
         super(props);
 
-        this.getPieceDisplay = (boardPiece) => {
+        this.getPieceDisplay = this.getPieceDisplay.bind(this);
+    }
 
-            let pieceClass = ""
+    getPieceDisplay(boardPiece) {
 
-            switch (boardPiece) {
-                case GROUND :
-                    pieceClass = GROUND_CSS;
-                    break;
+        let pieceClass = ""
 
-                case WALL :
-                    pieceClass = WALL_CSS;
-                    break;
+        switch (boardPiece) {
+            case GROUND :
+                pieceClass = GROUND_CSS;
+                break;
 
-                case WATER :
-                    pieceClass = WATER_CSS;
-                    break;
+            case WALL :
+                pieceClass = WALL_CSS;
+                break;
 
-                case PLAYER :
-                    pieceClass = PLAYER_CSS;
-                    break;
+            case WATER :
+                pieceClass = WATER_CSS;
+                break;
 
-                default :
-                    pieceClass = DEFAULT_CSS;
-                    break
-            }
+            case PLAYER :
+                pieceClass = PLAYER_CSS;
+                break;
 
-            return pieceClass;
+            default :
+                pieceClass = DEFAULT_CSS;
+                break
         }
+
+        return pieceClass;
     }
 
     render() {

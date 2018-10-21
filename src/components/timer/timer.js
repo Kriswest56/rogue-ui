@@ -14,26 +14,29 @@ class Timer extends React.Component {
         this.state = {
             nextUpdate: props.nextUpdate
         }
-        this.startTimer = () => {
-            clearInterval(this.timer)
-            this.timer = setInterval(this.tick.bind(this), 100);
-        }
 
-        this.tick = () => {
-            this.setState({
-                nextUpdate: (this.state.nextUpdate - 100)
-            })
-
-            if(this.state.nextUpdate < 0){
-                this.props.getBoard();
-                this.setState({
-                    nextUpdate: 5000
-                })
-            }
-        }
-
-
+        this.startTimer = this.startTimer.bind(this);
+        this.tick = this.tick.bind(this);
     }
+
+    startTimer() {
+        clearInterval(this.timer)
+        this.timer = setInterval(this.tick.bind(this), 100);
+    }
+
+    tick() {
+        this.setState({
+            nextUpdate: (this.state.nextUpdate - 100)
+        })
+
+        if(this.state.nextUpdate < 0){
+            this.props.getBoard();
+            this.setState({
+                nextUpdate: 5000
+            })
+        }
+    }
+
     render() {
 
         this.startTimer(this.state.nextUpdate);
