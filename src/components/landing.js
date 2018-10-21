@@ -40,8 +40,8 @@ class Landing extends React.Component {
     }
 
     // This refreshes the board state every 5 seconds
+    /* istanbul ignore next */
     async getBoard() {
-
         let board = await requestBoard(this.state.username);
 
         this.setState({
@@ -50,7 +50,6 @@ class Landing extends React.Component {
             gameStarted: true,
             countdown: 5
         });
-
     }
 
     initBoard(username) {

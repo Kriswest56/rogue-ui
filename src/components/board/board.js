@@ -76,6 +76,7 @@ class Board extends React.Component {
     /**
      * This function will send a move to the server to be queued
      */
+    /* istanbul ignore next */
     async actionHandler(direction) {
 
         if(!this.state.moveChosen){
