@@ -17,6 +17,8 @@ test('Landing renders', () => {
 test('Landing renders', () => {
     const wrapper = mount(<Landing />);
     expect(wrapper).not.toBeNull();
+    wrapper.find('loginForm').exists();
+    wrapper.find('board').exists();
 });
 
 test('Landing renders', () => {

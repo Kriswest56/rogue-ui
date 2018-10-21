@@ -1,11 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import axios from 'axios';
 import './board.css';
 import BoardSquare from './boardSquare/boardSquare';
-
-const config = require("../../config.json");
-const baseUrl = config.roguelikeServer.baseUrl;
+import {performAction} from '../../service/boardService';
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -39,8 +36,8 @@ class Board extends React.Component {
     componentDidUpdate(){
         let board = this.createBoard(this.props.board);
 
-        this.state.board = board;
-        this.state.moveChosen = false;
+        this.state.board = board; // eslint-disable-line
+        this.state.moveChosen = false; // eslint-disable-line
     }
 
     componentWillMount(){
@@ -83,20 +80,8 @@ class Board extends React.Component {
 
         if(!this.state.moveChosen){
             // call rougelikeServer and perform movement
-            await axios.get(`${baseUrl}/game/${this.state.username}/${direction}`)
-                .then(function (response) {
-                    if (response.data && response.data.board) {
-                        return response.data.board.split("\n");
-                    }
-                    return ["Error"];
-                })
-                .catch (function (error) {
-                    console.log(error);
-                    return ["Error"];
-                });
-
-            this.state.moveChosen = true;
-
+            performAction(this.state.username, direction);
+            this.state.moveChosen = true; // eslint-disable-line
         } else {
             console.warn("Move already chosen");
         }

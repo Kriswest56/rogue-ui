@@ -1,15 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import LoginPage from './login/login';
-import Board from './board/board'
-import Timer from './timer/timer'
+import Board from './board/board';
+import Timer from './timer/timer';
+import {requestBoard} from '../service/boardService';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './landing.css';
-
-const config = require("../config.json");
-const baseUrl = config.roguelikeServer.baseUrl;
-
 
 class Landing extends React.Component {
 
@@ -46,14 +42,7 @@ class Landing extends React.Component {
     // This refreshes the board state every 5 seconds
     async getBoard() {
 
-        let board = await axios.get(`${baseUrl}/game/${this.state.username}/`)
-            .then(function (response) {
-                return response.data.board.split("\n");
-            })
-            .catch(function (error) {
-                console.log(error);
-                return ["Error"];
-            });
+        let board = await requestBoard(this.state.username);
 
         this.setState({
             username: this.state.username,
