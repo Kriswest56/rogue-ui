@@ -2,10 +2,15 @@ import axios from 'axios'
 const config = require("../config.json");
 const baseUrl = config.roguelikeServer.baseUrl;
 
+/**
+ * Retrieves board state for player
+ * 
+ * @param {name of player} username 
+ */
 export const requestBoard = async (username) => {
 
     /* istanbul ignore next */
-    let board = await axios.get(`${baseUrl}/game/${username}/`)
+    return await axios.get(`${baseUrl}/game/${username}/`)
         .then(function (response) {
             return response.data.board.split("\n");
         })
@@ -14,10 +19,14 @@ export const requestBoard = async (username) => {
             return ["Error"];
         });
 
-    return board;
 };
 
-/* istanbul ignore next */
+/**
+ * Sends a movement action to the server to be queued
+ * 
+ * @param {name of player} username 
+ * @param {direction of movement} direction 
+ */
 export const performAction = async (username, direction) => {
     /* istanbul ignore next */
     await axios.get(`${baseUrl}/game/${username}/${direction}`)
