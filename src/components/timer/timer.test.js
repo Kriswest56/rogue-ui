@@ -2,6 +2,7 @@ import React from 'react';
 import Timer from './timer';
 import sinon from 'sinon';
 import enzyme, {shallow} from 'enzyme';
+import {expect} from 'chai'
 import Adapter from 'enzyme-adapter-react-16';
 
 enzyme.configure({ adapter: new Adapter() });
@@ -10,8 +11,8 @@ describe("***** Timer Tests *****", function() {
 
     test('Timer renders', () => {
         const wrapper = shallow(<Timer />);
-        expect(wrapper).not.toBeNull();
-        expect('timer').not.toBeNull();
+        expect(wrapper).to.not.be.null;
+        expect('timer').to.not.be.null;
     });
     
     test('Counter Resets', () => {
@@ -24,8 +25,8 @@ describe("***** Timer Tests *****", function() {
         });
         wrapper.instance().tick();
     
-        expect(wrapper).not.toBeNull();
-        expect(wrapper.state('nextUpdate')).toBe(5000);
+        expect(wrapper).to.not.be.null;
+        expect(wrapper.state('nextUpdate')).to.equal(5000);
     });
     
     test('Counter decrements by 100', () => {
@@ -38,8 +39,8 @@ describe("***** Timer Tests *****", function() {
         });
         wrapper.instance().tick();
     
-        expect(wrapper).not.toBeNull();
-        expect(wrapper.state('nextUpdate')).toBe(4900);
+        expect(wrapper).to.not.be.null;
+        expect(wrapper.state('nextUpdate')).to.equal(4900);
     });
     
 });
