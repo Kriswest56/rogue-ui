@@ -6,36 +6,40 @@ import Adapter from 'enzyme-adapter-react-16';
 
 enzyme.configure({ adapter: new Adapter() });
 
-test('Timer renders', () => {
-    const wrapper = shallow(<Timer />);
-    expect(wrapper).not.toBeNull();
-    expect('timer').not.toBeNull();
-});
+describe("***** Timer Tests *****", function() {
 
-test('Counter Resets', () => {
-
-    let getBoard = sinon.stub();
-
-    const wrapper = shallow(<Timer getBoard={getBoard} />);
-    wrapper.setState({
-        nextUpdate: 0
+    test('Timer renders', () => {
+        const wrapper = shallow(<Timer />);
+        expect(wrapper).not.toBeNull();
+        expect('timer').not.toBeNull();
     });
-    wrapper.instance().tick();
-
-    expect(wrapper).not.toBeNull();
-    expect(wrapper.state('nextUpdate')).toBe(5000);
-});
-
-test('Counter decrements by 100', () => {
-
-    let getBoard = sinon.stub();
-
-    const wrapper = shallow(<Timer getBoard={getBoard} />);
-    wrapper.setState({
-        nextUpdate: 5000
+    
+    test('Counter Resets', () => {
+    
+        let getBoard = sinon.stub();
+    
+        const wrapper = shallow(<Timer getBoard={getBoard} />);
+        wrapper.setState({
+            nextUpdate: 0
+        });
+        wrapper.instance().tick();
+    
+        expect(wrapper).not.toBeNull();
+        expect(wrapper.state('nextUpdate')).toBe(5000);
     });
-    wrapper.instance().tick();
-
-    expect(wrapper).not.toBeNull();
-    expect(wrapper.state('nextUpdate')).toBe(4900);
+    
+    test('Counter decrements by 100', () => {
+    
+        let getBoard = sinon.stub();
+    
+        const wrapper = shallow(<Timer getBoard={getBoard} />);
+        wrapper.setState({
+            nextUpdate: 5000
+        });
+        wrapper.instance().tick();
+    
+        expect(wrapper).not.toBeNull();
+        expect(wrapper.state('nextUpdate')).toBe(4900);
+    });
+    
 });
