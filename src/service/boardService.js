@@ -12,7 +12,10 @@ export const requestBoard = async (username) => {
     /* istanbul ignore next */
     return await axios.get(`${baseUrl}/game/${username}/`)
         .then(function (response) {
-            return response.data.board.split("\n");
+            if (response.data && response.data.board) {
+                return response.data.board.split("\n");
+            }
+            return ["Error"];
         })
         .catch(function (error) {
             console.log(error);

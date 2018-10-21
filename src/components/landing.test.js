@@ -1,6 +1,5 @@
 import React from 'react';
 import Landing from './landing';
-import renderer from 'react-test-renderer';
 import enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
