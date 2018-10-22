@@ -79,4 +79,22 @@ describe("***** Landing Tests *****", function() {
         expect(wrapper.state('nextUpdate')).to.equal(5000);
     });
 
+    test('No data object error', () => {
+        const wrapper = shallow(<Landing />);
+
+        let data = {
+            board : "@.........\n....#.....\n..........\n....~.....\n..........\n..........\n..........\n..........\n..........\n..........\n",
+            nextUpdate : 4360
+        }
+
+        wrapper.instance().setUserName("Kris", data);
+        wrapper.instance().getBoard();
+
+        expect(wrapper).to.not.be.null;
+        expect(wrapper.state('username')).to.equal("Kris");
+        expect(wrapper.state('board')).to.eql(["@.........","....#.....","..........","....~.....","..........","..........","..........","..........","..........","..........",""]);
+        expect(wrapper.state('gameStarted')).to.equal(true);
+        expect(wrapper.state('nextUpdate')).to.equal(4360);
+    });
+
 });
