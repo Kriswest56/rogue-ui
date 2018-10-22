@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import {requestBoard} from '../../service/boardService';
 import Board from '../board/board';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -72,14 +72,7 @@ class LoginPage extends React.Component{
 
     async handleSubmit() {
 
-        let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
-            .then(function (response) {
-                return response.data;
-            })
-            .catch(function (error) {
-                console.log(error);
-                return ["Error"];
-            });
+        let boardResp = requestBoard(this.state.username);
 
         this.props.setUserName(this.state.username, boardResp);
     }
