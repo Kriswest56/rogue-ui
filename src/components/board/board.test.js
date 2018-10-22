@@ -89,7 +89,7 @@ describe("***** Board Tests *****", function() {
         wrapper.unmount();
     });
 
-    test('ARROW_DOWN move gets set', () => {    
+    test('Invalid move does not get set', () => {    
         const wrapper = shallow(<Board 
                                     board={board}
                                     username={"Kris"}
@@ -124,7 +124,6 @@ describe("***** Board Tests *****", function() {
         });
 
         expect(wrapper.state('moveChosen')).to.equal(false);
-
     });
 
 });
