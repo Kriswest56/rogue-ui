@@ -30,9 +30,9 @@ class Board extends React.Component {
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.actionHandler = this.actionHandler.bind(this);
         this.createBoard = this.createBoard.bind(this);
-        this.board = this.board.bind(this);
     }
 
+    /* istanbul ignore next */
     componentDidUpdate(){
         let board = this.createBoard(this.props.board);
 
@@ -118,20 +118,6 @@ class Board extends React.Component {
         });
 
         return renderedBoard;
-    }
-
-    board() {
-        let board = <div id="game">
-            <div id="board" className="row">
-                <div className="col-sm-12">
-                    <div className="board">
-                        {this.state.board}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        return board;
     }
 
     render() {

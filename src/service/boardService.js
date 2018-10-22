@@ -8,7 +8,6 @@ const baseUrl = config.roguelikeServer.baseUrl;
  * @param {name of player} username 
  */
 export const requestBoard = async (username) => {
-
     /* istanbul ignore next */
     return await axios.get(`${baseUrl}/game/${username}/`)
         .then(function (response) {
@@ -21,7 +20,6 @@ export const requestBoard = async (username) => {
             console.log(error);
             return ["Error"];
         });
-
 };
 
 /**
