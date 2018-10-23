@@ -8,7 +8,7 @@ import Adapter from 'enzyme-adapter-react-16';
 enzyme.configure({ adapter: new Adapter() });
 
 describe("***** Login Tests *****", function() {
-    test('', () => {
+    test('renderBoard passes when board is rendered on login', () => {
         const wrapper = shallow(<Login/>);
         wrapper.setState({
             username: 'blah'
@@ -17,7 +17,7 @@ describe("***** Login Tests *****", function() {
         expect(wrapper).to.not.be.null;
     });
 
-    test('', () => {
+    test('username is set equal to a name', () => {
         const event = {
             target: {
                 value: 'blahblah'
@@ -30,7 +30,7 @@ describe("***** Login Tests *****", function() {
         expect(wrapper.state('username')).to.equal('blahblah');
     });
 
-    test('', () => {
+    test('async handleSubmit passes', () => {
         const wrapper = shallow(<Login/>);
         wrapper.setState({
             username: 'blah'
