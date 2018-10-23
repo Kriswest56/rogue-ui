@@ -1,13 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-import {requestBoard} from '../../service/boardService';
+import {requestData} from '../../service/boardService';
 import Board from '../board/board';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css'
-
-const config = require('../../config.json');
-const baseUrl = config.roguelikeServer.baseUrl;
 
 class LoginPage extends React.Component{
     constructor(props){
@@ -71,9 +67,8 @@ class LoginPage extends React.Component{
     }
 
     async handleSubmit() {
-
-        let boardResp = requestBoard(this.state.username);
-
+        let boardResp = await requestData(this.state.username);
+        
         this.props.setUserName(this.state.username, boardResp);
     }
 

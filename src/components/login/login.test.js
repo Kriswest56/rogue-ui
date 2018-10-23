@@ -1,13 +1,14 @@
 import React from 'react';
-import axios from 'axios';
 import Login from './login';
 import enzyme, {shallow} from 'enzyme';
 import {expect} from 'chai'
 import Adapter from 'enzyme-adapter-react-16';
+import sinon from 'sinon';
 
 enzyme.configure({ adapter: new Adapter() });
 
 describe("***** Login Tests *****", function() {
+
     test('renderBoard passes when board is rendered on login', () => {
         const wrapper = shallow(<Login/>);
         wrapper.setState({
@@ -30,14 +31,18 @@ describe("***** Login Tests *****", function() {
         expect(wrapper.state('username')).to.equal('blahblah');
     });
 
-    test('async handleSubmit passes', () => {
-        const wrapper = shallow(<Login/>);
+    test('async handleSubmit passes', async () => {
+        const setUserName = sinon.spy();
+        const wrapper = shallow(<Login 
+                                    setUserName={setUserName}
+                                />);
         wrapper.setState({
             username: 'blah'
         });
-        wrapper.instance().handleSubmit();
+        await wrapper.instance().handleSubmit();
         expect(wrapper).to.not.be.null;
         expect(wrapper.state('username')).to.equal('blah');
+        expect(setUserName.calledOnce).to.be.true;
     });
 
 });

@@ -27,7 +27,6 @@ class Landing extends React.Component {
     }
 
     setUserName(username, data) {
-
         let board = data.board ? data.board.split("\n") : ["Error"];
         let nextUpdate = data.nextUpdate ? data.nextUpdate : 5000;
 
