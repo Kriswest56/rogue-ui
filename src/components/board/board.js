@@ -13,6 +13,7 @@ const PATH_LEFT = "left";
 const PATH_UP = "up";
 const PATH_RIGHT = "right";
 const PATH_DOWN = "down";
+const NO_MOVE = "none";
 
 class Board extends React.Component {
 
@@ -25,13 +26,14 @@ class Board extends React.Component {
             board: board,
             username: this.props.username, //must be lower case
             moveChosen: false,
-            playerMoves: ["No Move"],
-            move: "No Move"
+            playerMoves: [NO_MOVE, NO_MOVE],
+            move: NO_MOVE
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.actionHandler = this.actionHandler.bind(this);
         this.createBoard = this.createBoard.bind(this);
+        this.displayMoveList = this.displayMoveList.bind(this);
     }
 
     /* istanbul ignore next */
@@ -41,11 +43,10 @@ class Board extends React.Component {
         this.state.board = board; // eslint-disable-line
         this.state.moveChosen = false; // eslint-disable-line
 
-        let moveList = this.state.playerMoves;
-
         if(this.state.playerMoves.length > 1){
             let move = this.state.playerMoves.shift(); // eslint-disable-line
             this.state.move = move; // eslint-disable-line
+            this.state.playerMoves.push(NO_MOVE); // eslint-disable-line
         }
         
     }
@@ -89,8 +90,7 @@ class Board extends React.Component {
     /* istanbul ignore next */
     async actionHandler(direction) {
         if(!this.state.moveChosen){
-
-            this.state.playerMoves.push(direction);
+            this.state.playerMoves.splice(1, 2, direction); // eslint-disable-line
 
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
@@ -132,24 +132,28 @@ class Board extends React.Component {
         return renderedBoard;
     }
 
+    displayMoveList() {
+        return this.state.playerMoves.map((move, i) => {
+            if(i === 0){
+                return (<div key={i}>
+                            <label>
+                                <h4>Current Move: {move}</h4>
+                            </label>
+                        </div>);
+            } else {
+                return (<div key={i}>
+                    <label>
+                        <h3><b>Next Move: {move}</b></h3>
+                    </label>
+                </div>);
+            }
+            
+        });
+    }
+
     render() {
 
-        let moveList = this.state.playerMoves.map((move, i) => {
-                if(i == 0){
-                    return (<div key={i}>
-                                <label>
-                                    Current Move: {move}
-                                </label>
-                            </div>);
-                } else {
-                    return (<div key={i}>
-                        <label>
-                            Next Move: {move}
-                        </label>
-                    </div>);
-                }
-                
-            });
+        let moveList = this.displayMoveList();
 
         return (
             <div className="center">
