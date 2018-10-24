@@ -12,7 +12,7 @@ describe("***** Timer Tests *****", function() {
     test('Timer renders', () => {
         const wrapper = shallow(<Timer />);
         expect(wrapper).to.not.be.null;
-        expect('timer').to.not.be.null;
+        wrapper.find('timer').exists();
     });
     
     test('Counter Resets', () => {

@@ -24,7 +24,9 @@ class Board extends React.Component {
         this.state = {
             board: board,
             username: this.props.username, //must be lower case
-            moveChosen: false
+            moveChosen: false,
+            playerMoves: ["No Move"],
+            move: "No Move"
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -38,6 +40,14 @@ class Board extends React.Component {
 
         this.state.board = board; // eslint-disable-line
         this.state.moveChosen = false; // eslint-disable-line
+
+        let moveList = this.state.playerMoves;
+
+        if(this.state.playerMoves.length > 1){
+            let move = this.state.playerMoves.shift(); // eslint-disable-line
+            this.state.move = move; // eslint-disable-line
+        }
+        
     }
 
     componentWillMount(){
@@ -78,8 +88,10 @@ class Board extends React.Component {
      */
     /* istanbul ignore next */
     async actionHandler(direction) {
-
         if(!this.state.moveChosen){
+
+            this.state.playerMoves.push(direction);
+
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
             this.state.moveChosen = true; // eslint-disable-line
@@ -121,9 +133,32 @@ class Board extends React.Component {
     }
 
     render() {
+
+        let moveList = this.state.playerMoves.map((move, i) => {
+                if(i == 0){
+                    return (<div key={i}>
+                                <label>
+                                    Current Move: {move}
+                                </label>
+                            </div>);
+                } else {
+                    return (<div key={i}>
+                        <label>
+                            Next Move: {move}
+                        </label>
+                    </div>);
+                }
+                
+            });
+
         return (
             <div className="center">
-                {this.state.board}
+                <div>
+                    {this.state.board}
+                </div>
+                <div>
+                    {moveList}
+                </div>
             </div>
         );
     }

@@ -15,7 +15,7 @@ class Landing extends React.Component {
             username: "",
             countdown: 0,
             gameStarted: false,
-            board: [""]
+            board: [""], 
         }
 
         this.setUserName = this.setUserName.bind(this);
