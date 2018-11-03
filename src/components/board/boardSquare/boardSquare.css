@@ -10,25 +10,20 @@ body {
 }
 
 .piece-ground {
-    background-color: green;
-    border-style: solid;
-    border-width: 0.5px;
+    background-image: url(../../../resources/images/grass.jpg);
     height: 34px;
     width: 34px;
 }
 
 .piece-player {
-    background-color: black;
-    border-style: solid;
-    border-width: 0.5px;
+    background-image: url(../../../resources/images/character_forward.gif);
+    background-color: #285c28;
     height: 34px;
     width: 34px;
 }
 
 .piece-wall {
-    background-color: darkolivegreen;
-    border-style: solid;
-    border-width: 0.5px;
+    background-image: url(../../../resources/images/wall.jpg);
     height: 34px;
     width: 34px;
 }
