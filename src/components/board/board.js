@@ -13,6 +13,7 @@ const PATH_LEFT = "left";
 const PATH_UP = "up";
 const PATH_RIGHT = "right";
 const PATH_DOWN = "down";
+const NO_MOVE = "none";
 
 class Board extends React.Component {
 
@@ -24,12 +25,15 @@ class Board extends React.Component {
         this.state = {
             board: board,
             username: this.props.username, //must be lower case
-            moveChosen: false
+            moveChosen: false,
+            playerMoves: [NO_MOVE, NO_MOVE],
+            move: NO_MOVE
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.actionHandler = this.actionHandler.bind(this);
         this.createBoard = this.createBoard.bind(this);
+        this.displayMoveList = this.displayMoveList.bind(this);
     }
 
     /* istanbul ignore next */
@@ -38,6 +42,13 @@ class Board extends React.Component {
 
         this.state.board = board; // eslint-disable-line
         this.state.moveChosen = false; // eslint-disable-line
+
+        if(this.state.playerMoves.length > 1){
+            let move = this.state.playerMoves.shift(); // eslint-disable-line
+            this.state.move = move; // eslint-disable-line
+            this.state.playerMoves.push(NO_MOVE); // eslint-disable-line
+        }
+        
     }
 
     componentWillMount(){
@@ -78,8 +89,9 @@ class Board extends React.Component {
      */
     /* istanbul ignore next */
     async actionHandler(direction) {
-
         if(!this.state.moveChosen){
+            this.state.playerMoves.splice(1, 2, direction); // eslint-disable-line
+
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
             this.state.moveChosen = true; // eslint-disable-line
@@ -91,17 +103,18 @@ class Board extends React.Component {
 
     createBoard(board) {
 
-        let key = 1;
         // Iterate over rows
         let renderedBoard = board.map((boardRow, i) => {
 
             let row = boardRow.split("");
 
             // Iterate over pieces in the row
-            row = row.map((boardPiece) => {
-                key++;
+            row = row.map((boardPiece, j) => {
+
+                if (j === 10 && i === 11) { boardPiece = '@';} // put player in center of the map
+
                 return (
-                    <div className="col-sm-1-custom" key={key}>
+                    <div className="col-sm-1-custom" key={i + "-" + j}>
                         <BoardSquare
                             boardPiece={boardPiece}
                         />
@@ -120,11 +133,48 @@ class Board extends React.Component {
         return renderedBoard;
     }
 
+    displayMoveList() {
+        return this.state.playerMoves.map((move, i) => {
+            if(i === 0){
+                return null;
+            } else {
+                return (
+                    <div className="player-attr">
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <h3><b>Player: {this.state.username}</b></h3>
+                            </div>
+                            <div className="col-sm-6" />
+                        </div>
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <h3><b>Next Move: {move}</b></h3>
+                            </div>
+                            <div className="col-sm-6" />
+                        </div>
+                    </div>
+                );
+            }
+            
+        });
+    }
+
     render() {
+
+        let moveList = this.displayMoveList();
+
         return (
-            <div className="center">
-                {this.state.board}
+            <div>
+                <div >
+                    <div className="board">
+                        {this.state.board}
+                    </div>
+                </div>
+                <div>
+                    {moveList}
+                </div>
             </div>
+            
         );
     }
 

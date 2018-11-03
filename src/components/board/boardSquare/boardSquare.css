@@ -5,38 +5,38 @@ body {
 }
 
 .boardPiece {
-    width: 22px;
-    height: 22px;
+    width: 31px;
+    height: 31px;
 }
 
 .piece-ground {
     background-color: green;
     border-style: solid;
     border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    height: 34px;
+    width: 34px;
 }
 
 .piece-player {
     background-color: black;
     border-style: solid;
     border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    height: 34px;
+    width: 34px;
 }
 
 .piece-wall {
     background-color: darkolivegreen;
     border-style: solid;
     border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    height: 34px;
+    width: 34px;
 }
 
 .piece-water {
     background-color: darkblue;
     border-style: solid;
     border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    height: 34px;
+    width: 34px;
 }
