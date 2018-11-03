@@ -56,7 +56,7 @@ class Landing extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-sm-2" />
-                    <div className="col-sm-8 center">
+                    <div className="col-sm-8">
                         <Board
                             username={username}
                             gameStarted={this.gameStarted}

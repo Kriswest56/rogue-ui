@@ -103,17 +103,18 @@ class Board extends React.Component {
 
     createBoard(board) {
 
-        let key = 1;
         // Iterate over rows
         let renderedBoard = board.map((boardRow, i) => {
 
             let row = boardRow.split("");
 
             // Iterate over pieces in the row
-            row = row.map((boardPiece) => {
-                key++;
+            row = row.map((boardPiece, j) => {
+
+                if (j === 10 && i === 11) { boardPiece = '@';} // put player in center of the map
+
                 return (
-                    <div className="col-sm-1-custom" key={key}>
+                    <div className="col-sm-1-custom" key={i + "-" + j}>
                         <BoardSquare
                             boardPiece={boardPiece}
                         />
@@ -135,17 +136,24 @@ class Board extends React.Component {
     displayMoveList() {
         return this.state.playerMoves.map((move, i) => {
             if(i === 0){
-                return (<div key={i}>
-                            <label>
-                                <h4>Current Move: {move}</h4>
-                            </label>
-                        </div>);
+                return null;
             } else {
-                return (<div key={i}>
-                    <label>
-                        <h3><b>Next Move: {move}</b></h3>
-                    </label>
-                </div>);
+                return (
+                    <div className="player-attr">
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <h3><b>Player: {this.state.username}</b></h3>
+                            </div>
+                            <div className="col-sm-6" />
+                        </div>
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <h3><b>Next Move: {move}</b></h3>
+                            </div>
+                            <div className="col-sm-6" />
+                        </div>
+                    </div>
+                );
             }
             
         });
@@ -156,14 +164,17 @@ class Board extends React.Component {
         let moveList = this.displayMoveList();
 
         return (
-            <div className="center">
-                <div>
-                    {this.state.board}
+            <div>
+                <div >
+                    <div className="board">
+                        {this.state.board}
+                    </div>
                 </div>
                 <div>
                     {moveList}
                 </div>
             </div>
+            
         );
     }
 
