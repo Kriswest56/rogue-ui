@@ -1,6 +1,7 @@
 import axios from 'axios'
 const config = require("../config.json");
 const baseUrl = config.roguelikeServer.baseUrl;
+const errorMsg = ["Error................"];
 
 /**
  * Retrieves board state for player
@@ -14,11 +15,11 @@ export const requestData = async (username) => {
             if (response.data && response.data.board) {
                 return response.data;
             }
-            return ["Error"];
+            return errorMsg;
         })
         .catch(function (error) {
-            //console.log(error);
-            return ["Error"];
+            console.log(error);
+            return errorMsg;
         });
 };
 
@@ -34,11 +35,11 @@ export const requestBoard = async (username) => {
             if (response.data && response.data.board) {
                 return response.data.board.split("\n");
             }
-            return ["Error"];
+            return errorMsg;
         })
         .catch(function (error) {
             console.log(error);
-            return ["Error"];
+            return errorMsg;
         });
 };
 
@@ -55,10 +56,10 @@ export const performAction = async (username, direction) => {
             if (response.data && response.data.board) {
                 return response.data.board.split("\n");
             }
-            return ["Error"];
+            return errorMsg;
         })
         .catch (function (error) {
             console.log(error);
-            return ["Error"];
+            return errorMsg;
         });
 }
