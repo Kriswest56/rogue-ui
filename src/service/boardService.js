@@ -13,6 +13,7 @@ export const requestData = async (username) => {
     return await axios.get(`${baseUrl}/game/${username}/`)
         .then(function (response) {
             if (response.data && response.data.board) {
+                console.log(response.data.board);
                 return response.data;
             }
             return errorMsg;

@@ -28,6 +28,12 @@ body {
     width: 34px;
 }
 
+.piece-fog {
+    background-color: #222222;
+    height: 34px;
+    width: 34px;
+}
+
 .piece-water {
     background-color: darkblue;
     border-style: solid;
