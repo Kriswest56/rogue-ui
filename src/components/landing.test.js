@@ -21,7 +21,7 @@ describe("***** Landing Tests *****", function() {
             username: "Kris",
             countdown: 5,
             gameStarted: true,
-            board: ["@.........\n....#.....\n..........\n....~.....\n..........\n..........\n..........\n..........\n..........\n..........\n"]
+            board: ["@.........\n....#.....\n....%.....\n....~.....\n..........\n..........\n..........\n..........\n..........\n..........\n"]
         })
     
         expect(wrapper).to.not.be.null;
@@ -29,6 +29,7 @@ describe("***** Landing Tests *****", function() {
         wrapper.find('piece-player').exists();
         wrapper.find('piece-wall').exists();
         wrapper.find('piece-water').exists();
+        wrapper.find('piece-fog').exists();
     });
 
     test('Username and Board get set', () => {
@@ -60,7 +61,7 @@ describe("***** Landing Tests *****", function() {
 
         expect(wrapper).to.not.be.null;
         expect(wrapper.state('username')).to.equal("Kris");
-        expect(wrapper.state('board')).to.eql(["Error"]);
+        expect(wrapper.state('board')).to.eql(["Error................"]);
         expect(wrapper.state('gameStarted')).to.equal(true);
         expect(wrapper.state('nextUpdate')).to.equal(4360);
     });
@@ -74,7 +75,7 @@ describe("***** Landing Tests *****", function() {
 
         expect(wrapper).to.not.be.null;
         expect(wrapper.state('username')).to.equal("Kris");
-        expect(wrapper.state('board')).to.eql(["Error"]);
+        expect(wrapper.state('board')).to.eql(["Error................"]);
         expect(wrapper.state('gameStarted')).to.equal(true);
         expect(wrapper.state('nextUpdate')).to.equal(5000);
     });
