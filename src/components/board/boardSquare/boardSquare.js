@@ -57,10 +57,8 @@ class BoardSquare extends React.Component {
                 break;
 
             default :
-                if(!debug){
-                    pieceClass = DEFAULT_CSS;
-                }
-                break
+                pieceClass = debug ? '' : DEFAULT_CSS;
+                break;
         }
 
         return pieceClass;
