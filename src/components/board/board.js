@@ -42,6 +42,7 @@ class Board extends React.Component {
 
         this.state.board = board; // eslint-disable-line
         this.state.moveChosen = false; // eslint-disable-line
+        document.getElementById('move').innerHTML = 'none';
 
         if(this.state.playerMoves.length > 1){
             let move = this.state.playerMoves.shift(); // eslint-disable-line
@@ -96,10 +97,10 @@ class Board extends React.Component {
     async actionHandler(direction) {
         if(!this.state.moveChosen){
             this.state.playerMoves.splice(1, 2, direction); // eslint-disable-line
-
+            this.state.moveChosen = true; // eslint-disable-line
+            document.getElementById('move').innerHTML = direction;
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
-            this.state.moveChosen = true; // eslint-disable-line
         } else {
             console.warn("Move already chosen");
         }
@@ -153,7 +154,7 @@ class Board extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-6">
-                                <h3><b>Next Move: {move}</b></h3>
+                                <h3><b>Next Move: <span id='move'>{move}</span></b></h3>
                             </div>
                             <div className="col-sm-6" />
                         </div>
