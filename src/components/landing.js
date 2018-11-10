@@ -18,7 +18,7 @@ class Landing extends React.Component {
             board: [""],
             turnDelay: 5000,
             nextUpdate: 5000
-        }
+        };
 
         this.setUserName = this.setUserName.bind(this);
         this.getBoard = this.getBoard.bind(this);
