@@ -61,6 +61,7 @@ class Board extends React.Component {
 
     handleKeyDown(event) {
 
+        let prevent = true;
         switch( event.keyCode ) {
 
             case ARROW_LEFT:
@@ -80,7 +81,11 @@ class Board extends React.Component {
                 break;
 
             default:
+                prevent = false;
                 break;
+        }
+        if (prevent) {
+            event.preventDefault();
         }
     }
 
