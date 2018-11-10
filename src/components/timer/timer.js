@@ -34,7 +34,7 @@ class Timer extends React.Component {
         if(this.state.nextUpdate < 0){
             this.props.getBoard();
             this.setState({
-                nextUpdate: 5000
+                nextUpdate: TURN_LENGTH
             })
         }
     }
