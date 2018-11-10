@@ -4,7 +4,7 @@ import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './timer.css';
 
-const TURN_LENGTH = 5000;
+let TURN_LENGTH = 5000;
 
 class Timer extends React.Component {
 
@@ -14,6 +14,8 @@ class Timer extends React.Component {
         this.state = {
             nextUpdate: props.nextUpdate
         }
+
+        TURN_LENGTH = props.turnDelay;
 
         this.startTimer = this.startTimer.bind(this);
         this.tick = this.tick.bind(this);

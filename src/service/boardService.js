@@ -34,7 +34,7 @@ export const requestBoard = async (username) => {
     return await axios.get(`${baseUrl}/game/${username}/`)
         .then(function (response) {
             if (response.data && response.data.board) {
-                return response.data.board.split("\n");
+                return response.data;
             }
             return errorMsg;
         })

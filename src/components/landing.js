@@ -11,11 +11,13 @@ class Landing extends React.Component {
 
     constructor(props) {
         super(props);
+        
         this.state = {
             username: "",
-            countdown: 0,
             gameStarted: false,
-            board: [""], 
+            board: [""],
+            turnDelay: 5000,
+            nextUpdate: 5000
         }
 
         this.setUserName = this.setUserName.bind(this);
@@ -29,25 +31,27 @@ class Landing extends React.Component {
     setUserName(username, data) {
         let board = data.board ? data.board.split("\n") : ["Error................"];
         let nextUpdate = data.nextUpdate ? data.nextUpdate : 5000;
+        let turnDelay = data.turnDelay ? data.turnDelay : 5000;
 
         this.setState({
             username: username,
             board: board,
             gameStarted: true,
-            nextUpdate: nextUpdate
+            nextUpdate: nextUpdate, 
+            turnDelay: turnDelay
         });
     }
 
     // This refreshes the board state every 5 seconds
     /* istanbul ignore next */
     async getBoard() {
-        let board = await requestBoard(this.state.username);
+        let data = await requestBoard(this.state.username);
+        let board = data.board.split("\n");
 
         this.setState({
             username: this.state.username,
             board: board,
             gameStarted: true,
-            countdown: 5
         });
     }
 
@@ -77,6 +81,7 @@ class Landing extends React.Component {
                 <Timer
                     getBoard={this.getBoard}
                     nextUpdate={this.state.nextUpdate}
+                    turnDelay={this.state.turnDelay}
                 />
             );
         }
