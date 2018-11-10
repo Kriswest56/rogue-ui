@@ -2,6 +2,8 @@ import React from 'react';
 
 import './boardSquare.css';
 
+const debug = false;
+
 const GROUND = ".";
 const PLAYER = "@";
 const WALL = '#';
@@ -55,7 +57,9 @@ class BoardSquare extends React.Component {
                 break;
 
             default :
-                pieceClass = DEFAULT_CSS;
+                if(!debug){
+                    pieceClass = DEFAULT_CSS;
+                }
                 break
         }
 
@@ -63,9 +67,12 @@ class BoardSquare extends React.Component {
     }
 
     render() {
+
+        const piece = debug ? this.props.boardPiece : null; 
+
         return (
             <div className="boardPiece">
-                <div className={this.getPieceDisplay(this.props.boardPiece)} id="boardPiece" />
+                <div className={this.getPieceDisplay(this.props.boardPiece)} id="boardPiece">{piece}</div>
             </div>
         );
     }

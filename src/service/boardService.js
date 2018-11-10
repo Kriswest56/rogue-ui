@@ -13,7 +13,7 @@ export const requestData = async (username) => {
     return await axios.get(`${baseUrl}/game/${username}/`)
         .then(function (response) {
             if (response.data && response.data.board) {
-                console.log(response.data.board);
+                console.log('Data:' + JSON.stringify(response.data));
                 return response.data;
             }
             return errorMsg;
@@ -34,6 +34,7 @@ export const requestBoard = async (username) => {
     return await axios.get(`${baseUrl}/game/${username}/`)
         .then(function (response) {
             if (response.data && response.data.board) {
+                console.log('Data:' + JSON.stringify(response.data));
                 return response.data;
             }
             return errorMsg;
