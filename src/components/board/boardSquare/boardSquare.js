@@ -6,12 +6,14 @@ const GROUND = ".";
 const PLAYER = "@";
 const WALL = '#';
 const WATER = '~';
+const TREE = 'T';
 const FOG = '%';
 
 const GROUND_CSS = "piece-ground";
 const PLAYER_CSS = "piece-player";
 const WALL_CSS = "piece-wall";
 const WATER_CSS = "piece-water";
+const TREE_CSS = "piece-tree";
 const FOG_CSS = "piece-fog";
 const DEFAULT_CSS = "piece-ground";
 
@@ -42,6 +44,10 @@ class BoardSquare extends React.Component {
 
             case PLAYER :
                 pieceClass = PLAYER_CSS;
+                break;
+
+            case TREE :
+                pieceClass = TREE_CSS;
                 break;
 
             case FOG :

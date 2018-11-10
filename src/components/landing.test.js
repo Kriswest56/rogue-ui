@@ -21,7 +21,7 @@ describe("***** Landing Tests *****", function() {
             username: "Kris",
             countdown: 5,
             gameStarted: true,
-            board: ["@.........\n....#.....\n....%.....\n....~.....\n..........\n..........\n..........\n..........\n..........\n..........\n"]
+            board: ["@.........\n....#.....\n....%.....\n....~.....\n.....T....\n..........\n..........\n..........\n..........\n..........\n"]
         })
     
         expect(wrapper).to.not.be.null;
@@ -30,6 +30,7 @@ describe("***** Landing Tests *****", function() {
         wrapper.find('piece-wall').exists();
         wrapper.find('piece-water').exists();
         wrapper.find('piece-fog').exists();
+        wrapper.find('piece-tree').exists();
     });
 
     test('Username and Board get set', () => {
