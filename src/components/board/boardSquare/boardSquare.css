@@ -16,8 +16,7 @@ body {
 }
 
 .piece-player {
-    background-image: url(../../../resources/images/character_forward.gif);
-    background-color: #285c28;
+    background-image: url(../../../resources/images/character_forward.jpg);
     height: 34px;
     width: 34px;
 }
@@ -29,7 +28,7 @@ body {
 }
 
 .piece-tree {
-    background-color: url(../../../resources/images/tree.jpg);
+    background-image: url(../../../resources/images/tree.jpg);
     height: 34px;
     width: 34px;
 }
@@ -41,9 +40,7 @@ body {
 }
 
 .piece-water {
-    background-color: url(../../../resources/images/water.jpg);
-    border-style: solid;
-    border-width: 0.5px;
+    background-image: url(../../../resources/images/water.jpg);
     height: 34px;
     width: 34px;
 }
