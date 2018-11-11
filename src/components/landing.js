@@ -46,7 +46,7 @@ class Landing extends React.Component {
     /* istanbul ignore next */
     async getBoard() {
         let data = await requestBoard(this.state.username);
-        let board = data.board.split("\n");
+        let board = data.board ? data.board.split("\n") : ["Error................"];
 
         this.setState({
             username: this.state.username,
