@@ -5,38 +5,42 @@ body {
 }
 
 .boardPiece {
-    width: 22px;
-    height: 22px;
+    width: 31px;
+    height: 31px;
 }
 
 .piece-ground {
-    background-color: green;
-    border-style: solid;
-    border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    background-image: url(../../../resources/images/grass.jpg);
+    height: 34px;
+    width: 34px;
 }
 
 .piece-player {
-    background-color: black;
-    border-style: solid;
-    border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    background-image: url(../../../resources/images/character_forward.jpg);
+    height: 34px;
+    width: 34px;
 }
 
 .piece-wall {
-    background-color: darkolivegreen;
-    border-style: solid;
-    border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    background-image: url(../../../resources/images/wall.jpg);
+    height: 34px;
+    width: 34px;
+}
+
+.piece-tree {
+    background-image: url(../../../resources/images/tree.jpg);
+    height: 34px;
+    width: 34px;
+}
+
+.piece-fog {
+    background-color: #222222;
+    height: 34px;
+    width: 34px;
 }
 
 .piece-water {
-    background-color: darkblue;
-    border-style: solid;
-    border-width: 0.5px;
-    height: 25px;
-    width: 25px;
+    background-image: url(../../../resources/images/water.jpg);
+    height: 34px;
+    width: 34px;
 }

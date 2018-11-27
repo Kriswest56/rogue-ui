@@ -1,13 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-
+import {requestData} from '../../service/boardService';
 import Board from '../board/board';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css'
-
-const config = require('../../config.json');
-const baseUrl = config.roguelikeServer.baseUrl;
 
 class LoginPage extends React.Component{
     constructor(props){
@@ -17,9 +13,14 @@ class LoginPage extends React.Component{
             username: "",
             nameChosen: false,
         }
+
+        this.loginForm = this.loginForm.bind(this);
+        this.renderBoard = this.renderBoard.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    loginForm = () => {
+    loginForm() {
         let loginForm = (
 
             <div id="loginForm" className="login-form-style">
@@ -32,7 +33,7 @@ class LoginPage extends React.Component{
                                 </label>
                             </form>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <br />
                 <br />
@@ -41,7 +42,7 @@ class LoginPage extends React.Component{
                         <div className="center">
                             <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>START</button>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         );
@@ -49,32 +50,24 @@ class LoginPage extends React.Component{
         return loginForm
     }
 
-    renderBoard = () =>{
+    renderBoard() {
         let renderBoard =<div id="board">
-                            <Board 
-                                username={this.state.username}    
-                            />
-                        </div>
+            <Board
+                username={this.state.username}
+            />
+        </div>
 
         return renderBoard
     }
 
-    handleChange = (event) => {
+    handleChange(event) {
         this.setState({
             username: event.target.value
         });
     }
 
-    handleSubmit = async () => {
-
-        let boardResp = await axios.get(`${baseUrl}/game/${this.state.username}/`)
-        .then(function (response) {
-            return response.data;
-        })
-        .catch(function (error) {
-            console.log(error);
-            return ["Error"];
-        });
+    async handleSubmit() {
+        let boardResp = await requestData(this.state.username);
         
         this.props.setUserName(this.state.username, boardResp);
     }
