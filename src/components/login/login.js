@@ -5,6 +5,8 @@ import Board from '../board/board';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css'
 
+const ENTER = 13;
+
 class LoginPage extends React.Component{
     constructor(props){
         super(props);
@@ -18,6 +20,35 @@ class LoginPage extends React.Component{
         this.renderBoard = this.renderBoard.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+    }
+
+    componentWillMount(){
+        document.addEventListener("keydown", this.handleKeyDown.bind(this));
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+    }
+
+    handleKeyDown(event) {
+
+        console.log(event.keyCode);
+
+        let prevent = true;
+        switch( event.keyCode ) {
+
+            case ENTER:
+                    this.handleSubmit();
+                break;
+
+            default:
+                prevent = false;
+                break;
+        }
+        if (prevent) {
+            event.preventDefault();
+        }
     }
 
     loginForm() {
