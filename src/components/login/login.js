@@ -33,21 +33,21 @@ class LoginPage extends React.Component{
 
     handleKeyDown(event) {
 
-        console.log(event.keyCode);
+        if(!this.state.nameChosen) {
+            let prevent = true;
+            switch( event.keyCode ) {
 
-        let prevent = true;
-        switch( event.keyCode ) {
+                case ENTER:
+                        this.handleSubmit();
+                    break;
 
-            case ENTER:
-                    this.handleSubmit();
-                break;
-
-            default:
-                prevent = false;
-                break;
-        }
-        if (prevent) {
-            event.preventDefault();
+                default:
+                    prevent = false;
+                    break;
+            }
+            if (prevent) {
+                event.preventDefault();
+            }
         }
     }
 
@@ -101,6 +101,8 @@ class LoginPage extends React.Component{
         let boardResp = await requestData(this.state.username);
         
         this.props.setUserName(this.state.username, boardResp);
+
+        this.state.nameChosen = true;
     }
 
     render() {
