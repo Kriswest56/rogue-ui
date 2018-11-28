@@ -19,7 +19,7 @@ describe("***** Timer Tests *****", function() {
     
         let getBoard = sinon.stub();
     
-        const wrapper = shallow(<Timer getBoard={getBoard} />);
+        const wrapper = shallow(<Timer turnDelay={5000} getBoard={getBoard} />);
         wrapper.setState({
             nextUpdate: 0
         });

@@ -14,6 +14,8 @@ const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40; 
 
+const preventDefault = sinon.stub();
+
 describe("***** Board Tests *****", function() {
 
     test('Board renders', () => {
@@ -33,7 +35,8 @@ describe("***** Board Tests *****", function() {
                                 />);
 
         const event = {
-            keyCode: ARROW_LEFT
+            keyCode: ARROW_LEFT,
+            preventDefault: preventDefault
         }
 
         expect(wrapper.state('moveChosen')).to.equal(false);
@@ -49,7 +52,8 @@ describe("***** Board Tests *****", function() {
                                 />);
 
         const event = {
-            keyCode: ARROW_UP
+            keyCode: ARROW_UP,
+            preventDefault: preventDefault
         }
 
         expect(wrapper.state('moveChosen')).to.equal(false);
@@ -65,7 +69,8 @@ describe("***** Board Tests *****", function() {
                                 />);
 
         const event = {
-            keyCode: ARROW_RIGHT
+            keyCode: ARROW_RIGHT,
+            preventDefault: preventDefault
         }
 
         expect(wrapper.state('moveChosen')).to.equal(false);
@@ -81,7 +86,8 @@ describe("***** Board Tests *****", function() {
                                 />);
 
         const event = {
-            keyCode: ARROW_DOWN
+            keyCode: ARROW_DOWN,
+            preventDefault: preventDefault
         }
 
         expect(wrapper.state('moveChosen')).to.equal(false);
@@ -113,7 +119,8 @@ describe("***** Board Tests *****", function() {
                                 />);
 
         const event = {
-            keyCode: ARROW_DOWN
+            keyCode: ARROW_DOWN,
+            preventDefault: preventDefault
         }
 
         expect(wrapper.state('moveChosen')).to.equal(false);

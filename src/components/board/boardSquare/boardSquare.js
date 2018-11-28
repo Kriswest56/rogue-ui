@@ -10,9 +10,13 @@ const WALL = '#';
 const WATER = '~';
 const TREE = 'T';
 const FOG = '%';
+const ALLY = 'A';
+const ENEMY = 'E';
 
 const GROUND_CSS = "piece-ground";
 const PLAYER_CSS = "piece-player";
+const ALLY_CSS = "piece-ally";
+const ENEMY_CSS = "piece-enemy";
 const WALL_CSS = "piece-wall";
 const WATER_CSS = "piece-water";
 const TREE_CSS = "piece-tree";
@@ -32,31 +36,39 @@ class BoardSquare extends React.Component {
         let pieceClass = ""
 
         switch (boardPiece) {
-            case GROUND :
+            case GROUND:
                 pieceClass = GROUND_CSS;
                 break;
 
-            case WALL :
+            case WALL:
                 pieceClass = WALL_CSS;
                 break;
 
-            case WATER :
+            case WATER:
                 pieceClass = WATER_CSS;
                 break;
 
-            case PLAYER :
+            case PLAYER:
                 pieceClass = PLAYER_CSS;
                 break;
 
-            case TREE :
+            case TREE:
                 pieceClass = TREE_CSS;
                 break;
 
-            case FOG :
+            case FOG:
                 pieceClass = FOG_CSS;
                 break;
 
-            default :
+            case ENEMY:
+                pieceClass = ENEMY_CSS;
+                break;
+
+            case ALLY:
+                pieceClass = ALLY_CSS;
+                break;
+
+            default:
                 pieceClass = debug ? '' : DEFAULT_CSS;
                 break;
         }
