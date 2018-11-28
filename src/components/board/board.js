@@ -8,6 +8,7 @@ const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40; 
+const DELETE = 88;
 
 const PATH_LEFT = "left";
 const PATH_UP = "up";
@@ -37,10 +38,7 @@ class Board extends React.Component {
     }
 
     /* istanbul ignore next */
-    componentDidUpdate(){
-        let board = this.createBoard(this.props.board);
-
-        this.state.board = board; // eslint-disable-line
+    async componentDidUpdate(){
         this.state.moveChosen = false; // eslint-disable-line
         document.getElementById('move').innerHTML = 'none';
 
@@ -62,31 +60,37 @@ class Board extends React.Component {
 
     handleKeyDown(event) {
 
-        let prevent = true;
-        switch( event.keyCode ) {
+        if(!this.state.moveChosen || event.keyCode === DELETE){
+            let prevent = true;
+            switch( event.keyCode ) {
 
-            case ARROW_LEFT:
-                this.actionHandler(PATH_LEFT);
-                break;
+                case ARROW_LEFT:
+                    this.actionHandler(PATH_LEFT);
+                    break;
 
-            case ARROW_UP:
-                this.actionHandler(PATH_UP);
-                break;
+                case ARROW_UP:
+                    this.actionHandler(PATH_UP);
+                    break;
 
-            case ARROW_RIGHT:
-                this.actionHandler(PATH_RIGHT);
-                break;
+                case ARROW_RIGHT:
+                    this.actionHandler(PATH_RIGHT);
+                    break;
 
-            case ARROW_DOWN:
-                this.actionHandler(PATH_DOWN);
-                break;
+                case ARROW_DOWN:
+                    this.actionHandler(PATH_DOWN);
+                    break;
 
-            default:
-                prevent = false;
-                break;
-        }
-        if (prevent) {
-            event.preventDefault();
+                case DELETE:
+                    this.actionHandler(NO_MOVE);
+                    break;
+
+                default:
+                    prevent = false;
+                    break;
+            }
+            if (prevent) {
+                event.preventDefault();
+            }
         }
     }
 
@@ -101,14 +105,18 @@ class Board extends React.Component {
             document.getElementById('move').innerHTML = direction;
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
-        } else {
-            console.warn("Move already chosen");
+        } 
+
+        if(DELETE) {
+            this.state.playerMoves.splice(1, 2, direction); // eslint-disable-line
+            document.getElementById('move').innerHTML = direction;
+            // call rougelikeServer and perform movement
+            performAction(this.state.username, direction);
         }
 
     }
 
     createBoard(board) {
-
         // Iterate over rows
         let renderedBoard = board.map((boardRow, i) => {
 
@@ -167,13 +175,14 @@ class Board extends React.Component {
 
     render() {
 
+        let board = this.createBoard(this.props.board);
         let moveList = this.displayMoveList();
 
         return (
             <div>
                 <div >
                     <div className="board">
-                        {this.state.board}
+                        {board}
                     </div>
                 </div>
                 <div>

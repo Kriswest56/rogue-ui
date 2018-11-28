@@ -21,12 +21,14 @@ describe("***** Landing Tests *****", function() {
             username: "Kris",
             countdown: 5,
             gameStarted: true,
-            board: ["@.........\n....#.....\n....%.....\n....~.....\n.....T....\n..........\n..........\n..........\n..........\n..........\n"]
+            board: ["@.........\n....#.....\n....%.....\n....~.....\n.....T....\n.....A....\n..........\n..E.......\n..........\n..........\n"]
         })
     
         expect(wrapper).to.not.be.null;
         wrapper.find('piece-ground').exists();
         wrapper.find('piece-player').exists();
+        wrapper.find('piece-ally').exists();
+        wrapper.find('piece-enemy').exists();
         wrapper.find('piece-wall').exists();
         wrapper.find('piece-water').exists();
         wrapper.find('piece-fog').exists();

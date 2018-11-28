@@ -21,6 +21,18 @@ body {
     width: 34px;
 }
 
+.piece-ally{
+    background-image: url(../../../resources/images/ally_forward.jpg);
+    height: 34px;
+    width: 34px;
+}
+
+.piece-enemy{
+    background-image: url(../../../resources/images/enemy_forward.jpg);
+    height: 34px;
+    width: 34px;
+}
+
 .piece-wall {
     background-image: url(../../../resources/images/wall.jpg);
     height: 34px;
