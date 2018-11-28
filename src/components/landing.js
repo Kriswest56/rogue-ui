@@ -47,11 +47,15 @@ class Landing extends React.Component {
     async getBoard() {
         let data = await requestBoard(this.state.username);
         let board = data.board ? data.board.split("\n") : ["Error................"];
+        let nextUpdate = data.nextUpdate ? data.nextUpdate : 5000;
+        let turnDelay = data.turnDelay ? data.turnDelay : 5000;
 
         this.setState({
             username: this.state.username,
             board: board,
             gameStarted: true,
+            nextUpdate: nextUpdate, 
+            turnDelay: turnDelay
         });
     }
 
