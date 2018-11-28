@@ -60,7 +60,7 @@ class Board extends React.Component {
 
     handleKeyDown(event) {
 
-        if(!this.state.moveChosen){
+        if(!this.state.moveChosen || event.keyCode === DELETE){
             let prevent = true;
             switch( event.keyCode ) {
 
