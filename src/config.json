@@ -5,6 +5,6 @@
         "baseUrl" : "http://localhost:8081"
     },
     "roguelikeServer": {
-        "baseUrl" : "http://104.196.153.2:3000"
+        "baseUrl" : "http://localhost:3000"
     }
 }
