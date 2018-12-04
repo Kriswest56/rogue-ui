@@ -4,6 +4,9 @@ import './board.css';
 import BoardSquare from './boardSquare/boardSquare';
 import {performAction} from '../../service/boardService';
 
+var Sound = require('react-sound').default;
+var sound = require('../../resources/sounds/exploring.mp3');
+
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
@@ -188,6 +191,10 @@ class Board extends React.Component {
                 <div>
                     {moveList}
                 </div>
+                <Sound
+                    url={sound}
+                    playStatus={Sound.status.PLAYING}
+                />
             </div>
             
         );
