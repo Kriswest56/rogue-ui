@@ -194,6 +194,8 @@ class Board extends React.Component {
                 <Sound
                     url={sound}
                     playStatus={Sound.status.PLAYING}
+                    loop={true}
+                    volume={10}
                 />
             </div>
             
