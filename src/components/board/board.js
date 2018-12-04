@@ -7,6 +7,7 @@ import {performAction} from '../../service/boardService';
 let Sound = require('react-sound').default;
 let sound = require('../../resources/sounds/exploring.mp3');
 let fish = require('../../resources/images/fish.gif');
+let lavaWand = require('../../resources/images/lava-wand.png');
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -33,7 +34,8 @@ class Board extends React.Component {
             moveChosen: false,
             playerMoves: [NO_MOVE, NO_MOVE],
             move: NO_MOVE,
-            fishAmount: 0
+            fishAmount: 0,
+            lavaWandAmount: 0
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -170,7 +172,8 @@ class Board extends React.Component {
                                 <h3><b>Next Move: <span id='move'>{move}</span></b></h3>
                             </div>
                             <div className="col-sm-6">
-                                <img className="fish-img" src={fish} /> <label className="fish-inv">x {this.state.fishAmount}</label>
+                                <img className="fish-img" src={fish} alt="Fish" /> <label className="fish-inv">x {this.state.fishAmount}</label>
+                                <img className="lava-wand-img" src={lavaWand} alt="Lave Wand" /> <label className="lava-wand-inv">x {this.state.lavaWandAmount}</label>
                             </div>
                         </div>
                     </div>
