@@ -4,8 +4,9 @@ import './board.css';
 import BoardSquare from './boardSquare/boardSquare';
 import {performAction} from '../../service/boardService';
 
-var Sound = require('react-sound').default;
-var sound = require('../../resources/sounds/exploring.mp3');
+let Sound = require('react-sound').default;
+let sound = require('../../resources/sounds/exploring.mp3');
+let fish = require('../../resources/images/fish.gif');
 
 const ARROW_LEFT = 37;
 const ARROW_UP = 38;
@@ -31,7 +32,8 @@ class Board extends React.Component {
             username: this.props.username, //must be lower case
             moveChosen: false,
             playerMoves: [NO_MOVE, NO_MOVE],
-            move: NO_MOVE
+            move: NO_MOVE,
+            fishAmount: 0
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -167,7 +169,9 @@ class Board extends React.Component {
                             <div className="col-sm-6">
                                 <h3><b>Next Move: <span id='move'>{move}</span></b></h3>
                             </div>
-                            <div className="col-sm-6" />
+                            <div className="col-sm-6">
+                                <img className="fish-img" src={fish} /> <label className="fish-inv">x {this.state.fishAmount}</label>
+                            </div>
                         </div>
                     </div>
                 );

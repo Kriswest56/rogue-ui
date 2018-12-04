@@ -62,3 +62,16 @@ body {
     border-style: ridge;
     border-color: #234323;
 }
+
+.fish-img {
+    position: absolute;
+    bottom: 45px;
+    right: 100px;
+}
+
+.fish-inv {
+    position: absolute;
+    bottom: 36px;
+    right: 25px;
+    font-size: 28px
+}
