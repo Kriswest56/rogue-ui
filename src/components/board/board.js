@@ -163,9 +163,9 @@ class Board extends React.Component {
     async actionHandler(direction) {
         if(!this.state.moveChosen){
             this.setState({
-                move: direction,
-                moveChosen: true
+                move: direction
             });
+            this.state.moveChosen = true;
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
         } 
