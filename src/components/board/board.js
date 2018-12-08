@@ -14,6 +14,7 @@ const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40; 
 const DELETE = 88;
+const ITEM_SWITCH = 80;
 
 const PATH_LEFT = "left";
 const PATH_UP = "up";
@@ -35,13 +36,15 @@ class Board extends React.Component {
             playerMoves: [NO_MOVE, NO_MOVE],
             move: NO_MOVE,
             fishAmount: 0,
-            lavaWandAmount: 0
+            lavaWandAmount: 0,
+            heldItem: ''
         }
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.actionHandler = this.actionHandler.bind(this);
         this.createBoard = this.createBoard.bind(this);
         this.displayMoveList = this.displayMoveList.bind(this);
+        this.switchHeldItem = this.switchHeldItem.bind(this);
     }
 
     /* istanbul ignore next */
@@ -67,8 +70,9 @@ class Board extends React.Component {
 
     handleKeyDown(event) {
 
-        if(!this.state.moveChosen || event.keyCode === DELETE){
+        if(!this.state.moveChosen || event.keyCode === DELETE || event.keyCode === ITEM_SWITCH){
             let prevent = true;
+            console.log(event.keyCode);
             switch( event.keyCode ) {
 
                 case ARROW_LEFT:
@@ -91,6 +95,10 @@ class Board extends React.Component {
                     this.actionHandler(NO_MOVE);
                     break;
 
+                case ITEM_SWITCH:
+                    this.switchHeldItem();
+                    break;
+
                 default:
                     prevent = false;
                     break;
@@ -98,6 +106,23 @@ class Board extends React.Component {
             if (prevent) {
                 event.preventDefault();
             }
+        }
+    }
+
+    switchHeldItem() {
+        if(this.state.heldItem === '') {
+            this.setState({heldItem: 'fish'});
+            return;
+        }
+
+        if(this.state.heldItem === 'fish') {
+            this.setState({heldItem: 'wand'});
+            return;
+        }
+
+        if(this.state.heldItem === 'wand') {
+            this.setState({heldItem: ''});
+            return;
         }
     }
 
@@ -172,8 +197,8 @@ class Board extends React.Component {
                                 <h3><b>Next Move: <span id='move'>{move}</span></b></h3>
                             </div>
                             <div className="col-sm-6">
-                                <img className="fish-img" src={fish} alt="Fish" /> <label className="fish-inv">x {this.state.fishAmount}</label>
-                                <img className="lava-wand-img" src={lavaWand} alt="Lave Wand" /> <label className="lava-wand-inv">x {this.state.lavaWandAmount}</label>
+                                <img className="fish-img" src={fish} alt="Fish" /> {this.state.heldItem === 'fish' ? <label className="fish-select">*</label> : null}  <label className="fish-inv">x {this.state.fishAmount}</label>
+                                <img className="lava-wand-img" src={lavaWand} alt="Lava Wand" /> {this.state.heldItem === 'wand' ? <label className="wand-select">*</label> : null} <label className="lava-wand-inv">x {this.state.lavaWandAmount}</label>
                             </div>
                         </div>
                     </div>
@@ -184,6 +209,8 @@ class Board extends React.Component {
     }
 
     render() {
+
+        console.log(this.state.heldItem);
 
         let board = this.createBoard(this.props.board);
         let moveList = this.displayMoveList();

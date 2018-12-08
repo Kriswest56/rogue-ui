@@ -88,3 +88,15 @@ body {
     right: 25px;
     font-size: 28px
 }
+
+.fish-select {
+    position: absolute;
+    top: -55px;
+    right: 162px;
+}
+
+.wand-select {
+    position: absolute;
+    top: -12px;
+    right: 162px;
+}
