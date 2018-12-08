@@ -165,7 +165,7 @@ class Board extends React.Component {
             this.setState({
                 move: direction
             });
-            this.state.moveChosen = true;
+            this.state.moveChosen = true; // eslint-disable-line
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
         } 
