@@ -15,6 +15,10 @@ const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40; 
 const DELETE = 88;
 const ITEM_SWITCH = 80;
+const ITEM_LEFT = 65;
+const ITEM_UP = 87;
+const ITEM_RIGHT = 68;
+const ITEM_DOWN = 83;
 
 const PATH_LEFT = "left";
 const PATH_UP = "up";
@@ -27,24 +31,26 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
 
-        let board = this.createBoard(this.props.board);
-
         this.state = {
-            board: board,
+            board: '',
             username: this.props.username, //must be lower case
             moveChosen: false,
             playerMoves: [NO_MOVE, NO_MOVE],
+            direction: {up: '', down: '', left: '', right: ''},
             move: NO_MOVE,
             fishAmount: 0,
             lavaWandAmount: 0,
-            heldItem: ''
+            heldItem: 'nothing'
         }
+
+        this.state.board = this.createBoard(this.props.board);
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.actionHandler = this.actionHandler.bind(this);
         this.createBoard = this.createBoard.bind(this);
         this.displayMoveList = this.displayMoveList.bind(this);
         this.switchHeldItem = this.switchHeldItem.bind(this);
+        this.useItem = this.useItem.bind(this);
     }
 
     /* istanbul ignore next */
@@ -98,6 +104,22 @@ class Board extends React.Component {
                     this.switchHeldItem();
                     break;
 
+                case ITEM_UP:
+                    this.useItem(PATH_UP);
+                    break;
+
+                case ITEM_RIGHT:
+                    this.useItem(PATH_RIGHT);
+                    break;
+
+                case ITEM_DOWN:
+                    this.useItem(PATH_DOWN);
+                    break;
+
+                case ITEM_LEFT:
+                    this.useItem(PATH_LEFT);
+                    break;
+
                 default:
                     prevent = false;
                     break;
@@ -109,7 +131,7 @@ class Board extends React.Component {
     }
 
     switchHeldItem() {
-        if(this.state.heldItem === '') {
+        if(this.state.heldItem === 'nothing') {
             this.setState({heldItem: 'fish'});
             return;
         }
@@ -120,8 +142,17 @@ class Board extends React.Component {
         }
 
         if(this.state.heldItem === 'wand') {
-            this.setState({heldItem: ''});
+            this.setState({heldItem: 'nothing'});
             return;
+        }
+    }
+
+    useItem(direction) {
+        if(this.state.heldItem === 'fish' && !this.state.moveChosen) {
+            if (this.state.direction[direction] === '~') {
+                this.state.fishAmount = this.state.fishAmount + 1; // eslint-disable-line
+                this.state.moveChosen =true;  // eslint-disable-line
+            }
         }
     }
 
@@ -131,15 +162,16 @@ class Board extends React.Component {
     /* istanbul ignore next */
     async actionHandler(direction) {
         if(!this.state.moveChosen){
-            this.state.playerMoves.splice(1, 2, direction); // eslint-disable-line
-            this.state.moveChosen = true; // eslint-disable-line
-            document.getElementById('move').innerHTML = direction;
+            this.setState({
+                move: direction,
+                moveChosen: true
+            });
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
         } 
 
         if(DELETE) {
-            this.state.playerMoves.splice(1, 2, direction); // eslint-disable-line
+            this.state.move = direction; // eslint-disable-line
             document.getElementById('move').innerHTML = direction;
             // call rougelikeServer and perform movement
             performAction(this.state.username, direction);
@@ -150,14 +182,17 @@ class Board extends React.Component {
     createBoard(board) {
         // Iterate over rows
         let renderedBoard = board.map((boardRow, i) => {
-
             let row = boardRow.split("");
 
             // Iterate over pieces in the row
-            row = row.map((boardPiece, j) => {
+            row = row.map((boardPiece, j,) => {
 
                 if (j === 10 && i === 11) { boardPiece = '@';} // put player in center of the map
-
+                if (j === 9 && i === 11) { this.state.direction.left = boardPiece;} // eslint-disable-line
+                if (j === 11 && i === 11) { this.state.direction.right = boardPiece;} // eslint-disable-line
+                if (j === 10 && i === 10) { this.state.direction.up = boardPiece;} // eslint-disable-line
+                if (j === 10 && i === 12) {this.state.direction.down = boardPiece;} // eslint-disable-line
+ 
                 return (
                     <div className="col-sm-1-custom" key={i + "-" + j}>
                         <BoardSquare
@@ -172,39 +207,32 @@ class Board extends React.Component {
             </div>
 
             return renderedRow;
-
         });
 
         return renderedBoard;
     }
 
     displayMoveList() {
-        return this.state.playerMoves.map((move, i) => {
-            if(i === 0){
-                return null;
-            } else {
-                return (
-                    <div className="player-attr">
-                        <div className="row">
-                            <div className="col-sm-6">
-                                <h3><b>Player: {this.state.username}</b></h3>
-                            </div>
-                            <div className="col-sm-6" />
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-6">
-                                <h3><b>Next Move: <span id='move'>{move}</span></b></h3>
-                            </div>
-                            <div className="col-sm-6">
-                                <img className="fish-img" src={fish} alt="Fish" /> {this.state.heldItem === 'fish' ? <label className="fish-select">*</label> : null}  <label className="fish-inv">x {this.state.fishAmount}</label>
-                                <img className="lava-wand-img" src={lavaWand} alt="Lava Wand" /> {this.state.heldItem === 'wand' ? <label className="wand-select">*</label> : null} <label className="lava-wand-inv">x {this.state.lavaWandAmount}</label>
-                            </div>
-                        </div>
+
+        return (
+            <div className="player-attr">
+                <div className="row">
+                    <div className="col-sm-6">
+                        <h3><b>Player: {this.state.username}</b></h3>
                     </div>
-                );
-            }
-            
-        });
+                    <div className="col-sm-6" />
+                </div>
+                <div className="row">
+                    <div className="col-sm-6">
+                        <h3><b>Next Move: <span id='move'>{this.state.move}</span></b></h3>
+                    </div>
+                    <div className="col-sm-6">
+                        <img className="fish-img" src={fish} alt="Fish" /> {this.state.heldItem === 'fish' ? <label className="fish-select">*</label> : null}  <label className="fish-inv">x {this.state.fishAmount}</label>
+                        <img className="lava-wand-img" src={lavaWand} alt="Lava Wand" /> {this.state.heldItem === 'wand' ? <label className="wand-select">*</label> : null} <label className="lava-wand-inv">x {this.state.lavaWandAmount}</label>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     render() {
