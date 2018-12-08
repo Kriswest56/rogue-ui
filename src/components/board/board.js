@@ -72,7 +72,6 @@ class Board extends React.Component {
 
         if(!this.state.moveChosen || event.keyCode === DELETE || event.keyCode === ITEM_SWITCH){
             let prevent = true;
-            console.log(event.keyCode);
             switch( event.keyCode ) {
 
                 case ARROW_LEFT:
@@ -209,9 +208,6 @@ class Board extends React.Component {
     }
 
     render() {
-
-        console.log(this.state.heldItem);
-
         let board = this.createBoard(this.props.board);
         let moveList = this.displayMoveList();
 
