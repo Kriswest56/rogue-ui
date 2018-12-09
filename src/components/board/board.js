@@ -151,7 +151,7 @@ class Board extends React.Component {
         if(this.state.heldItem === 'fish' && !this.state.moveChosen) {
             if (this.state.direction[direction] === '~') {
                 this.state.fishAmount = this.state.fishAmount + 1; // eslint-disable-line
-                this.state.moveChosen =true;  // eslint-disable-line
+                this.state.moveChosen = true;  // eslint-disable-line
             }
         }
     }

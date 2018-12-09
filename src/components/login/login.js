@@ -32,13 +32,12 @@ class LoginPage extends React.Component{
     }
 
     handleKeyDown(event) {
-
         if(!this.state.nameChosen) {
             let prevent = true;
             switch( event.keyCode ) {
 
                 case ENTER:
-                        this.handleSubmit();
+                    this.handleSubmit();
                     break;
 
                 default:

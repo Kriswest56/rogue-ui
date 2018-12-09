@@ -31,6 +31,37 @@ describe("***** Login Tests *****", function() {
         expect(wrapper.state('username')).to.equal('blahblah');
     });
 
+    test('username is submitted with enter keyCode', () => {
+        let preventDefault = sinon.spy();
+        const event = {
+            keyCode: 13,
+            preventDefault: preventDefault
+        };
+        const setUserName = sinon.spy();
+        const wrapper = shallow(<Login 
+                                    setUserName={setUserName}
+                                />);
+        wrapper.state.username = "test";
+        wrapper.instance().handleKeyDown(event);
+        expect(wrapper).to.not.be.null;
+        expect(preventDefault.calledOnce).to.be.true;
+    });
+
+    test('username is not submitted with wrong keycode', () => {
+        let preventDefault = sinon.spy();
+        const event = {
+            keyCode: 10,
+            preventDefault: preventDefault
+        };
+        const setUserName = sinon.spy();
+        const wrapper = shallow(<Login 
+                                    setUserName={setUserName}
+                                />);
+        wrapper.instance().handleKeyDown(event);
+        expect(wrapper).to.not.be.null;
+        expect(preventDefault.calledOnce).to.be.false;
+    });
+
     test('async handleSubmit passes', async () => {
         const setUserName = sinon.spy();
         const wrapper = shallow(<Login 
